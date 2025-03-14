@@ -32,6 +32,7 @@ dependencies {
 
     // 웹 관련 의존성
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
     // Lombok (컴파일 시점 코드 생성을 위한 라이브러리)
     compileOnly 'org.projectlombok:lombok'

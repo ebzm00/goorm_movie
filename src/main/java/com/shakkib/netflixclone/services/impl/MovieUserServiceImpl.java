@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shakkib.netflixclone.daos.MovieDao;
+import com.shakkib.netflixclone.repository.MovieRepository;
 import com.shakkib.netflixclone.services.MovieUserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Service
 public class MovieUserServiceImpl implements MovieUserService {
-    MovieDao movieDao;
+    MovieRepository movieRepository;
 
     @Override
     public String getMovieListByGenre(String genre, String page){

@@ -1,4 +1,4 @@
-package com.shakkib.netflixclone.daos;
+package com.shakkib.netflixclone.repository;
 
 import com.shakkib.netflixclone.entities.Comment;
 import org.springframework.data.mongodb.repository.MongoRepository;

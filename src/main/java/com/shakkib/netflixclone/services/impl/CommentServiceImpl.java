@@ -1,6 +1,6 @@
 package com.shakkib.netflixclone.services.impl;
 
-import com.shakkib.netflixclone.daos.CommentDao;
+import com.shakkib.netflixclone.repository.CommentDao;
 import com.shakkib.netflixclone.entities.Comment;
 import com.shakkib.netflixclone.exceptions.CommentDetailsNotFoundException;
 import com.shakkib.netflixclone.services.CommentService;
