@@ -1,7 +1,7 @@
 package com.shakkib.netflixclone.services.impl;
 
-import com.shakkib.netflixclone.daos.MovieDao;
-import com.shakkib.netflixclone.entities.Movie;
+import com.shakkib.netflixclone.Repository.MovieRepository;
+import com.shakkib.netflixclone.entity.Movie;
 import com.shakkib.netflixclone.exceptions.MovieDetailsNotFoundException;
 import com.shakkib.netflixclone.exceptions.UserDetailsNotFoundException;
 import com.shakkib.netflixclone.services.MovieService;
@@ -19,7 +19,7 @@ public class MovieServiceImpl implements MovieService {
 
     static final Logger LOGGER = LoggerFactory.getLogger(MovieServiceImpl.class);
 
-    MovieDao movieDao;
+    MovieRepository movieDao;
 
     @Autowired
     private UserServiceImpl userServiceImpl;

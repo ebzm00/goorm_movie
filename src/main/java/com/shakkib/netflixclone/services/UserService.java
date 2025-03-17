@@ -1,10 +1,9 @@
 package com.shakkib.netflixclone.services;
 
-import com.shakkib.netflixclone.entities.User;
+import com.shakkib.netflixclone.dtoes.UserDTO;
 import com.shakkib.netflixclone.exceptions.UserDetailsNotFoundException;
 
 public interface UserService {
-    User createUser(User user);
-    User findUser(String id) throws UserDetailsNotFoundException;
-   // List<String> moviesOfUser(String userId);
+    UserDTO createUser(UserDTO userDTO); // 구현 없이 메서드 시그니처만 선언
+    UserDTO findUser(String id) throws UserDetailsNotFoundException;
 }

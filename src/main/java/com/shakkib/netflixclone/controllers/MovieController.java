@@ -1,7 +1,7 @@
 package com.shakkib.netflixclone.controllers;
 
 import com.shakkib.netflixclone.dtoes.MovieDTO;
-import com.shakkib.netflixclone.entities.Movie;
+import com.shakkib.netflixclone.entity.Movie;
 import com.shakkib.netflixclone.exceptions.MovieDetailsNotFoundException;
 import com.shakkib.netflixclone.exceptions.UserDetailsNotFoundException;
 import com.shakkib.netflixclone.services.impl.MovieServiceImpl;

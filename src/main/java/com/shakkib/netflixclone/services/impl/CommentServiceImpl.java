@@ -1,7 +1,7 @@
 package com.shakkib.netflixclone.services.impl;
 
-import com.shakkib.netflixclone.daos.CommentDao;
-import com.shakkib.netflixclone.entities.Comment;
+import com.shakkib.netflixclone.Repository.CommentRepository;
+import com.shakkib.netflixclone.entity.Comment;
 import com.shakkib.netflixclone.exceptions.CommentDetailsNotFoundException;
 import com.shakkib.netflixclone.services.CommentService;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
-    private CommentDao commentDao;
+    private CommentRepository commentDao;
 
     @Override
     public Comment writeComment(Comment comment) {
