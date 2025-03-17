@@ -61,7 +61,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = getComment(commentId);
         Comment updatedcomment = new Comment(comment,content); //생성자로 수정된 값 저장
 
-        return commentRepository.save(comment);
+        return commentRepository.save(updatedcomment);
     }
 
 

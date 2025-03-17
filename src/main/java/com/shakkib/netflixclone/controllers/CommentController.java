@@ -54,6 +54,7 @@ public class CommentController {
             String email = comment.getUser().getEmail();
             LocalDateTime createdAt = comment.getCreatedAt();
             String content = comment.getComment();
+
             mycomments.add(new CommentResponseDTO(email, createdAt, content));
 
 //            mycomments.add(convertCommentToCommentDTO(comment));

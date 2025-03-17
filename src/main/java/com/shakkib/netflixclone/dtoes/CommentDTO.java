@@ -32,6 +32,7 @@ public class CommentDTO {
     }
 
     public CommentDTO(Comment comment){
+        this.content = comment.getComment();
 
     }
 }
