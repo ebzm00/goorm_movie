@@ -3,7 +3,7 @@ package com.shakkib.netflixclone.services.impl;
 
 import javax.servlet.http.HttpSession;
 import com.shakkib.netflixclone.daos.UserDao;
-import com.shakkib.netflixclone.entities.User;
+import com.shakkib.netflixclone.entity.User;
 import com.shakkib.netflixclone.exceptions.UserDetailsNotFoundException;
 import com.shakkib.netflixclone.services.UserService;
 import lombok.AllArgsConstructor;

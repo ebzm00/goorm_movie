@@ -1,7 +1,7 @@
 package com.shakkib.netflixclone.controllers;
 
 import com.shakkib.netflixclone.dtoes.UserDTO;
-import com.shakkib.netflixclone.entities.User;
+import com.shakkib.netflixclone.entity.User;
 import com.shakkib.netflixclone.exceptions.UserDetailsNotFoundException;
 import com.shakkib.netflixclone.services.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;

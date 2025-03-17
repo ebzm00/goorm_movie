@@ -1,12 +1,15 @@
 package com.shakkib.netflixclone.controllers;
 
 import com.shakkib.netflixclone.dtoes.CommentDTO;
-import com.shakkib.netflixclone.entities.Comment;
+import com.shakkib.netflixclone.dtoes.CommentResponseDTO;
+import com.shakkib.netflixclone.entity.Comment;
 import com.shakkib.netflixclone.exceptions.CommentDetailsNotFoundException;
 import com.shakkib.netflixclone.services.impl.CommentServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,50 +23,65 @@ public class CommentController {
 
     @PostMapping("/write")
     public ResponseEntity<CommentDTO> writeComment(@RequestBody CommentDTO commentDTO){
-        Comment comment = convertCommentDTOToCommentEntity(commentDTO);
-        Comment myComment = commentServiceImpl.writeComment(comment);
-        CommentDTO myCommentDTO = convertCommentToCommentDTO(myComment);
-        return ResponseEntity.ok(myCommentDTO);
+//        Comment comment = convertCommentDTOToCommentEntity(commentDTO);
+
+        Comment myComment = commentServiceImpl.writeComment(commentDTO);
+
+//        CommentDTO myCommentDTO = convertCommentToCommentDTO(myComment);
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/read")
-    public ResponseEntity<CommentDTO> readComment(@PathVariable("id") String id) throws CommentDetailsNotFoundException {
+    public ResponseEntity<CommentResponseDTO> readComment(@PathVariable("id") Long id) throws CommentDetailsNotFoundException {
         Comment comment =  commentServiceImpl.getComment(id);
-        CommentDTO response = convertCommentToCommentDTO(comment);
+
+//        CommentDTO response = convertCommentToCommentDTO(comment);
+
+        CommentResponseDTO response = new CommentResponseDTO(comment.getUser().getEmail(), comment.getCreatedAt(), comment.getComment());
+
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/all/{id}")
-    public ResponseEntity<List<CommentDTO>> readAllCommentsOfUser(@PathVariable("id") String id) throws CommentDetailsNotFoundException {
+    public List<CommentResponseDTO> readAllCommentsOfUser(@PathVariable("id") Long id) throws CommentDetailsNotFoundException {
         List<Comment> comments = commentServiceImpl.getAllCommentsOfUser(id);
-        List<CommentDTO> mycomments = new ArrayList<>();
+//        List<CommentDTO> mycomments = new ArrayList<>();
+        List<CommentResponseDTO> mycomments = new ArrayList<>();
+
         for(Comment comment:comments){
-            mycomments.add(convertCommentToCommentDTO(comment));
+
+            String email = comment.getUser().getEmail();
+            LocalDateTime createdAt = comment.getCreatedAt();
+            String content = comment.getComment();
+            mycomments.add(new CommentResponseDTO(email, createdAt, content));
+
+//            mycomments.add(convertCommentToCommentDTO(comment));
+
         }
-        return ResponseEntity.ok(mycomments);
+
+        return mycomments;
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Boolean> deleteComment(@PathVariable("id") String commentId){
+    public ResponseEntity<Boolean> deleteComment(@PathVariable("id") Long commentId){
         Boolean flag = commentServiceImpl.deleteComment(commentId);
         return ResponseEntity.ok(flag);
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<CommentDTO> editMyComment(String commentId, String content) throws CommentDetailsNotFoundException {
+    public ResponseEntity<CommentDTO> editMyComment(Long commentId, String content) throws CommentDetailsNotFoundException {
         Comment comment = commentServiceImpl.editComment(commentId,content);
-        CommentDTO commentDTO = convertCommentToCommentDTO(comment);
-        return ResponseEntity.ok(commentDTO);
+//        CommentDTO commentDTO = convertCommentToCommentDTO(comment);
+        return ResponseEntity.ok().build();
     }
 
-    /* i have written my own logic to convert to dto to entity or vice verse, I could have used model mapper
-     but sometime its fails.*/
+//    private Comment convertCommentDTOToCommentEntity(CommentDTO commentDTO){
+//        return new Comment(commentDTO.getId(), commentDTO.getUserId(), commentDTO.getUserEmail(), commentDTO.getCommentAt(),commentDTO.getContent());
+//    }
+//
+//    private CommentDTO convertCommentToCommentDTO(Comment comment){
+//        return new CommentDTO(comment.getId(), comment.getUserId(), comment.getMovieId(), comment.getUserEmail(),comment.getCommentAt(), comment.getContent());
+//    }
 
-    private Comment convertCommentDTOToCommentEntity(CommentDTO commentDTO){
-        return new Comment(commentDTO.getId(), commentDTO.getUserId(), commentDTO.getUserEmail(), commentDTO.getCommentAt(),commentDTO.getContent());
-    }
-
-    private CommentDTO convertCommentToCommentDTO(Comment comment){
-        return new CommentDTO(comment.getId(), comment.getUserId(), comment.getMovieId(), comment.getUserEmail(),comment.getCommentAt(), comment.getContent());
-    }
 }

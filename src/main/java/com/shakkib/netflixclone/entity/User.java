@@ -32,4 +32,8 @@ public class User {
 
     @OneToOne
     private UserAccounts userAccounts;
+
+    public String getEmail() {
+        return email;
+    }
 }
