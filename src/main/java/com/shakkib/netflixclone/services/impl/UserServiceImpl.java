@@ -90,33 +90,6 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-
-    @Override
-    public String checkLogin(String email, String password, HttpSession httpSession) throws UserDetailsNotFoundException {
-        //UserDTO를 반환하는 findUserByEmail 메서드 사용
-        UserDTO userDTO = findUserByEmail(email); // UserDTO를 직접 반환받음
-
-        LOGGER.info("the user in service layer details : " + userDTO);
-        LOGGER.info(email + " + " + password + " + ", userDTO.getPassword());
-
-        boolean flag = true;
-
-        // 비밀번호 비교
-        if (userDTO.getPassword().compareTo(password) == 0 ) {
-            flag = true;
-        } else {
-            flag = false;
-        }
-
-        // 로그인 성공 처리
-        if (flag) {
-            LOGGER.info("inside the true statement : ");
-            httpSession.setAttribute("USERID_SESSION", userDTO.getEmail()); //userDTO에서 email 가져오기
-            return userDTO.getId(); //userDTO에서 id를 반환
-        } else {
-            throw new UserDetailsNotFoundException("UserName and Password are wrong");
-        }
-    }
 //    public String checkLogin(String email, String passWord, HttpSession httpSession) throws UserDetailsNotFoundException{
 //        User user = findUserByEmail(email);
 //        LOGGER.info("the user in service layer details :"+user);

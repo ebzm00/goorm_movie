@@ -17,16 +17,22 @@ public class UserDTO {
     private String password;
     private LocalDateTime createDate;
 
-    public UserDTO(String name, String email, LocalDateTime registeredDate) {
-        this.name = name;
+    public UserDTO(String nickname, String email, LocalDateTime registeredDate) {
+        this.nickname = nickname;
         this.email = email;
         this.createDate = LocalDateTime.now();
     }
 
-    public UserDTO(String name, String email, String password, LocalDateTime registeredDate) {
-        this.name = name;
+    public UserDTO(String nickname, String email, String password, LocalDateTime registeredDate) {
+        this.nickname = nickname;
         this.email = email;
         this.password = password;
         this.createDate = LocalDateTime.now();
     }
+
+    public UserDTO(String nickname,String email) {
+        this.nickname = nickname;
+        this.email = email;
+    }
+
 }

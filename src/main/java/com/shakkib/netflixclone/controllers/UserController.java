@@ -64,13 +64,13 @@ public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
 //        return ResponseEntity.ok(userDTO);
 //    }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserDTO userDTO, HttpSession httpSession) throws UserDetailsNotFoundException{
-        //User user1 = convertUserDTOToUserEntity(userDTO);
-        //User myuser = null;
-            String response = userServiceImpl.checkLogin(userDTO.getEmail(), userDTO.getPassword(), httpSession);
-            return response != null ? ResponseEntity.ok(response): ResponseEntity.badRequest().body(null);
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<String> login(@RequestBody UserDTO userDTO, HttpSession httpSession) throws UserDetailsNotFoundException{
+//        //User user1 = convertUserDTOToUserEntity(userDTO);
+//        //User myuser = null;
+//            String response = userServiceImpl.checkLogin(userDTO.getEmail(), userDTO.getPassword(), httpSession);
+//            return response != null ? ResponseEntity.ok(response): ResponseEntity.badRequest().body(null);
+//    }
 
     @GetMapping("/logout")
     String logout(HttpSession httpSession) {
@@ -82,25 +82,54 @@ public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody UserDTO userDTO, HttpSession httpSession) throws UserDetailsNotFoundException {
         LOGGER.info("Joining request received: " + userDTO);
+
+        //UserDTO를 User엔티티로 변환
         User user = convertUserDTOToUserEntity(userDTO);
+
+        //유저가 이미 존재하는지 확인
         boolean userExists = userServiceImpl.joiningMethod(user);
 
         if (userExists) {
             return new ResponseEntity<>("User already exists", HttpStatus.ALREADY_REPORTED);
         } else {
-            User newUser = userServiceImpl.createUser(user);
-            httpSession.setAttribute("USERID_SESSION", newUser.getEmail());
-            return ResponseEntity.ok(newUser.getEmail());
+            // UserDTO로 변환한 후 createUser 메서드 호출
+            UserDTO newUserDTO = userServiceImpl.createUser(userDTO); //userDTO로 넘김
+            httpSession.setAttribute("USERID_SESSION", newUserDTO.getEmail()); // userDTO에서 email가져오기
+            return ResponseEntity.ok(newUserDTO.getEmail());
         }
     }
+
+//    @PostMapping("/join")
+//    public ResponseEntity<String> join(@RequestBody UserDTO userDTO, HttpSession httpSession) throws UserDetailsNotFoundException {
+//        LOGGER.info("Joining request received: " + userDTO);
+//        User user = convertUserDTOToUserEntity(userDTO);
+//        boolean userExists = userServiceImpl.joiningMethod(user);
+//
+//        if (userExists) {
+//            return new ResponseEntity<>("User already exists", HttpStatus.ALREADY_REPORTED);
+//        } else {
+//            User newUser = userServiceImpl.createUser(user);
+//            httpSession.setAttribute("USERID_SESSION", newUser.getEmail());
+//            return ResponseEntity.ok(newUser.getEmail());
+//        }
+//    }
+
+
+
 //i havent used model mapper instead i have written my own code
     private UserDTO convertUserEntityToUserDTO(User user){
         UserDTO userDTO = new UserDTO(user.getEmail(),user.getNickname(),user.getEmail(),user.getCreateDate());
         return userDTO;
     }
 
-    private User convertUserDTOToUserEntity(UserDTO userDTO){
-        User user = new User(userDTO.getId(),userDTO.getName(), userDTO.getEmail());
+    private User convertUserDTOToUserEntity(UserDTO userDTO) {
+        User user = new User(userDTO.getEmail(),userDTO.getNickname(),userDTO.getCreateDate());
         return user;
     }
+
+
+//    private User convertUserDTOToUserEntity(UserDTO userDTO){
+//        User user = new User(userDTO.getId(),userDTO.getName(), userDTO.getEmail());
+//        return user;
+//    }
 }
