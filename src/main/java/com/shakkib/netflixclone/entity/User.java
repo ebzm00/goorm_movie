@@ -52,6 +52,10 @@ public class User {
     @JoinColumn(name = "user_accounts_id") // 외래키 매핑 명확화
     private UserAccounts userAccounts;
 
+    public String getEmail() {
+        return email;
+    }
+
 
     @PreUpdate
     public void setUpdateDate() {
