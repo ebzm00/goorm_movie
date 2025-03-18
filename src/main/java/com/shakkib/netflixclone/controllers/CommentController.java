@@ -1,7 +1,7 @@
 package com.shakkib.netflixclone.controllers;
 
 import com.shakkib.netflixclone.dtoes.CommentDTO;
-import com.shakkib.netflixclone.entities.Comment;
+import com.shakkib.netflixclone.entity.Comment;
 import com.shakkib.netflixclone.exceptions.CommentDetailsNotFoundException;
 import com.shakkib.netflixclone.services.impl.CommentServiceImpl;
 import lombok.AllArgsConstructor;

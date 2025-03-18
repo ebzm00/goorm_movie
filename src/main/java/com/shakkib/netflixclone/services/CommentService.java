@@ -1,6 +1,6 @@
 package com.shakkib.netflixclone.services;
 
-import com.shakkib.netflixclone.entities.Comment;
+import com.shakkib.netflixclone.entity.Comment;
 import com.shakkib.netflixclone.exceptions.CommentDetailsNotFoundException;
 
 public interface CommentService {
