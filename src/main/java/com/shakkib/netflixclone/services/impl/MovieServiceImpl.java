@@ -53,6 +53,10 @@ public class MovieServiceImpl implements MovieService {
         return true;
     }
 
+    public List<Movie> fetchAllMovies() {
+        return movieRepository.findAll();
+    }
+
     public boolean checkUser(Long userId) throws UserDetailsNotFoundException {
         return userServiceImpl.checkUserByUserId(userId);
     }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -21,24 +22,32 @@ public class MovieController {
 
     private final MovieServiceImpl movieServiceImpl;
 
-    @PostMapping("/add")
-    public String addMovieInMyList(@RequestBody MovieDTO movieDTO) {
-        Movie movie = convertMovieDTOToMovieEntity(movieDTO);
-        Movie response = movieServiceImpl.addMovie(movie);
-        String s = response.getSeq() != null ? "success" : "fail";
-        System.out.println(s);
-        return s;
-    }
+//    @PostMapping("/add")
+//    public String addMovieInMyList(@RequestBody MovieDTO movieDTO) {
+//        Movie movie = convertMovieDTOToMovieEntity(movieDTO);
+//        Movie response = movieServiceImpl.addMovie(movie);
+//        String s = response.getSeq() != null ? "success" : "fail";
+//        System.out.println(s);
+//        return s;
+//    }
 
-    @GetMapping("/allmovies/{user_id}")
-    public ResponseEntity<List<MovieDTO>> fetchAllMoviesOfUser(@PathVariable String user_id)
-            throws UserDetailsNotFoundException, MovieDetailsNotFoundException {
-        movieServiceImpl.checkUser(user_id);
-        List<Movie> movies = movieServiceImpl.fetchMovie(user_id);
-        List<MovieDTO> movieDTOS = new ArrayList<>();
-        for (Movie movie : movies) {
-            movieDTOS.add(convertMovieEntityToMovieDTO(movie));
-        }
+//    @GetMapping("/allmovies/{user_id}")
+//    public ResponseEntity<List<MovieDTO>> fetchAllMoviesOfUser(@PathVariable String user_id)
+//            throws UserDetailsNotFoundException, MovieDetailsNotFoundException {
+//        movieServiceImpl.checkUser(user_id);
+//        List<Movie> movies = movieServiceImpl.fetchMovie(user_id);
+//        List<MovieDTO> movieDTOS = new ArrayList<>();
+//        for (Movie movie : movies) {
+//            movieDTOS.add(convertMovieEntityToMovieDTO(movie));
+//        }
+//        return new ResponseEntity<>(movieDTOS, HttpStatus.OK);
+//    }
+    @GetMapping("/movies/all")
+    public ResponseEntity<List<MovieDTO>> fetchAllMovies() {
+        List<Movie> movies = movieServiceImpl.fetchAllMovies();
+        List<MovieDTO> movieDTOS = movies.stream()
+                .map(this::convertMovieEntityToMovieDTO)
+                .collect(Collectors.toList());
         return new ResponseEntity<>(movieDTOS, HttpStatus.OK);
     }
 
