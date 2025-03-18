@@ -9,25 +9,27 @@ import com.shakkib.netflixclone.entity.UserAccounts;
 import com.shakkib.netflixclone.exceptions.UserDetailsNotFoundException;
 import com.shakkib.netflixclone.services.UserService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-@AllArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
     private final UserAccountsRepository userAccountsRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
 
         // 비밀번호 해싱 후 User 저장
-//        String hashedPassword = passwordEncoder.encode(userDTO.getPassword());
+        String hashedPassword = passwordEncoder.encode(userDTO.getPassword());
         User newUser = new User(userDTO.getNickname(),userDTO.getEmail(),userDTO.getCreateDate(),userDTO.getPassword());
 
         userRepository.save(newUser);

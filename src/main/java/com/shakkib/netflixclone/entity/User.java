@@ -1,15 +1,20 @@
 package com.shakkib.netflixclone.entity;
 
+import com.shakkib.netflixclone.dtoes.JoinDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class User {
 
     @Id
@@ -42,6 +47,10 @@ public class User {
     private LocalDateTime createDate = LocalDateTime.now(); //자동생성
     private LocalDateTime updateDate;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_accounts_id") // 외래키 매핑 명확화
+    private UserAccounts userAccounts;
+
     //추가: 생성자 정의
     public User(String nickname,String email, LocalDateTime createDate, String password) {
         this.nickname = nickname;
@@ -56,11 +65,12 @@ public class User {
         this.createDate = LocalDateTime.now();
     }
 
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_accounts_id") // 외래키 매핑 명확화
-    private UserAccounts userAccounts;
-
+    public User(JoinDTO.Request request, PasswordEncoder passwordEncoder) {
+        this.email = request.getEmail();
+        this.password = passwordEncoder.encode(request.getPassword());
+        this.nickname = request.getNickname();
+        //다른건 나중에 추가
+    }
 
     @PreUpdate
     public void setUpdateDate() {
