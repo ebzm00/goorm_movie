@@ -1,4 +1,4 @@
-package com.shakkib.netflixclone.Repository;
+package com.shakkib.netflixclone.repository;
 
 import com.shakkib.netflixclone.entity.UserAccounts;
 import org.springframework.data.jpa.repository.JpaRepository;

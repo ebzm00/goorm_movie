@@ -1,6 +1,6 @@
 package com.shakkib.netflixclone.services.impl;
 
-import com.shakkib.netflixclone.Repository.MovieRepository;
+import com.shakkib.netflixclone.repository.MovieRepository;
 import com.shakkib.netflixclone.entity.Movie;
 import com.shakkib.netflixclone.exceptions.MovieDetailsNotFoundException;
 import com.shakkib.netflixclone.exceptions.UserDetailsNotFoundException;

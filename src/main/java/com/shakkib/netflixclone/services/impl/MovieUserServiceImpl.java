@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shakkib.netflixclone.Repository.MovieRepository;
+import com.shakkib.netflixclone.repository.MovieRepository;
 import com.shakkib.netflixclone.services.MovieUserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

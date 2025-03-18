@@ -1,10 +1,8 @@
 package com.shakkib.netflixclone.services.impl;
 
 
-import javax.servlet.http.HttpSession;
-
-import com.shakkib.netflixclone.Repository.UserAccountsRepository;
-import com.shakkib.netflixclone.Repository.UserRepository;
+import com.shakkib.netflixclone.repository.UserAccountsRepository;
+import com.shakkib.netflixclone.repository.UserRepository;
 import com.shakkib.netflixclone.dtoes.UserDTO;
 import com.shakkib.netflixclone.entity.User;
 import com.shakkib.netflixclone.entity.UserAccounts;
@@ -14,8 +12,6 @@ import lombok.AllArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 
 @AllArgsConstructor
