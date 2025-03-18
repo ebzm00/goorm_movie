@@ -84,7 +84,7 @@ public class MovieUserServiceImpl implements MovieUserService {
         String url = "http://api.themoviedb.org/3/discover/movie";
         String api_key = "b4eda142837c245432c018af5c4ec342";
         RestTemplate rt = new RestTemplate();
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponents builder = UriComponentsBuilder.fromUriString(url)
                                 .queryParam("page",page)
                                 .queryParam("with_genres",genre)
                                 .queryParam("api_key",api_key)
@@ -104,7 +104,7 @@ public class MovieUserServiceImpl implements MovieUserService {
         String sort_by = "vote_count.desc";
         // RestTemplate
         RestTemplate rt = new RestTemplate();
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponents builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("page", page)
                 .queryParam("sort_by", sort_by)
                 .queryParam("api_key", api_key)
@@ -125,7 +125,7 @@ public class MovieUserServiceImpl implements MovieUserService {
         String api_key = "b4eda142837c245432c018af5c4ec342";
         // RestTemplate
         RestTemplate rt = new RestTemplate();
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponents builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("page", page)
                 .queryParam("query", query)
                 .queryParam("api_key", api_key)
@@ -146,7 +146,7 @@ public class MovieUserServiceImpl implements MovieUserService {
 
         // RestTemplate
         RestTemplate rt = new RestTemplate();
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponents builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("page", page)
                 .queryParam("api_key", api_key)
                 .build(false);
@@ -168,7 +168,7 @@ public class MovieUserServiceImpl implements MovieUserService {
 
         // RestTemplate
         RestTemplate rt = new RestTemplate();
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponents builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("page", page)
                 .queryParam("language", language)
                 .queryParam("api_key", api_key)
@@ -190,7 +190,7 @@ public class MovieUserServiceImpl implements MovieUserService {
 
         // RestTemplate 생성
         RestTemplate rt = new RestTemplate();
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponents builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("page", page)
                 .queryParam("api_key", api_key)
                 .build(false);
@@ -209,7 +209,7 @@ public class MovieUserServiceImpl implements MovieUserService {
         String api_key="b4eda142837c245432c018af5c4ec342";
         // RestTemplate 생성
         RestTemplate rt = new RestTemplate();
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponents builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("api_key", api_key)
                 .build(false);
         String uri = builder.toUriString();
@@ -229,7 +229,7 @@ public class MovieUserServiceImpl implements MovieUserService {
         String api_key ="b4eda142837c245432c018af5c4ec342";
         // RestTemplate 생성
         RestTemplate rt = new RestTemplate();
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponents builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("api_key", api_key)
                 .build(false);
         String uri = builder.toUriString();
@@ -247,7 +247,7 @@ public class MovieUserServiceImpl implements MovieUserService {
         String url = "https://api.themoviedb.org/3/movie/" + id + "/images";
         String api_key ="2daa7f8ee3c810361492a3382e06545d";
         RestTemplate rt = new RestTemplate();
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponents builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("api_key", api_key)
                 .build(false);
         String uri = builder.toUriString();
@@ -282,7 +282,7 @@ public class MovieUserServiceImpl implements MovieUserService {
         String url = "https://api.themoviedb.org/3/movie/"+id+"/videos";
         String api_key = "b4eda142837c245432c018af5c4ec342";
         RestTemplate rt = new RestTemplate();
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponents builder = UriComponentsBuilder.fromUriString(url)
                                                     .queryParam("api_key",api_key)
                                                     .build(false);
         String uri = builder.toUriString();
@@ -295,7 +295,7 @@ public class MovieUserServiceImpl implements MovieUserService {
         String url = "https://api.themoviedb.org/3/discover/movie";
         String api_key = "b4eda142837c245432c018af5c4ec342";
         RestTemplate rt = new RestTemplate();
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponents builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("page", page)
                 .queryParam("sort_by", sort)
                 .queryParam("api_key", api_key)

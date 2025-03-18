@@ -21,4 +21,6 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     @Query("{'email':?0,'password':?1}")
     Optional<User> findUserByEmailAndPassWord(String email, String passWord);
+
+    Optional<User> findBySeq (Long id);
 }
