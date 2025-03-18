@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class UserRecord {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seq;
+    private Long id;
     private LocalDateTime watchedAt;
 
     @ManyToOne

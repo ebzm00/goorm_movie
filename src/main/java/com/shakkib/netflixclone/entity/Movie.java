@@ -19,7 +19,7 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seq;
+    private Long id;
     @Column(name = "movie_id", unique = true, nullable = false)
     private Long movieId;
     private String title;
@@ -35,10 +35,10 @@ public class Movie {
     private LocalDateTime updatedAt;
 
     //추가한 생성자
-    public Movie(Long seq, Long movieId, String title, String originalTitle, String posterPath,
+    public Movie(Long id, Long movieId, String title, String originalTitle, String posterPath,
                  boolean adult, String overview, LocalDate releaseDate,
                  LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.seq = seq;
+        this.id = id;
         this.movieId = movieId;
         this.title = title;
         this.originalTitle = originalTitle;

@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface MovieRepository extends JpaRepository<Movie,Long> {
     //    Optional<List<Movie>> findAllByUserId(Long id);
-    List<Movie> findAllByUserId(Long userId);
+//    List<Movie> findAllByUserId(Long userId);
 
 }

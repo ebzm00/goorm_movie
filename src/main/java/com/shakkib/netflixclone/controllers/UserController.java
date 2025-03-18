@@ -50,8 +50,8 @@ public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
 //        return ResponseEntity.ok(responseDTO);
 //    }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable("id") String id) throws UserDetailsNotFoundException {
+    @GetMapping("/find/{id}") //id == seq
+    public ResponseEntity<UserDTO> getUser(@PathVariable("id") Long id) throws UserDetailsNotFoundException {
         // userService에서 이미 UserDTO를 반환하므로 바로 받아서 사용
         UserDTO response = userServiceImpl.findUser(id);
         // UserDTO를 그대로 반환

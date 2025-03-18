@@ -10,7 +10,7 @@ import jakarta.persistence.OneToOne;
 public class AdminAccount {
 
     @Id
-    private Long seq;
+    private Long id;
 
     private String password;
 

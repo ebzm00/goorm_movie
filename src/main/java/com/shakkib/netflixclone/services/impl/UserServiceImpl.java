@@ -21,26 +21,24 @@ public class UserServiceImpl implements UserService {
     private final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
     private final UserAccountsRepository userAccountsRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
-        //User 생성 후 저장
-        User newUser = new User(userDTO.getNickname(),userDTO.getEmail(),userDTO.getCreateDate());
-        User savedUser = userRepository.save(newUser);
 
-        // 비밀번호 해싱 후 UserAccounts 저장
-        String hashedPassword = passwordEncoder.encode(userDTO.getPassword());
-        UserAccounts userAccount = new UserAccounts(savedUser, hashedPassword);
-        userAccountsRepository.save(userAccount);
+        // 비밀번호 해싱 후 User 저장
+//        String hashedPassword = passwordEncoder.encode(userDTO.getPassword());
+        User newUser = new User(userDTO.getNickname(),userDTO.getEmail(),userDTO.getCreateDate(),userDTO.getPassword());
 
-        return new UserDTO(savedUser.getEmail(), savedUser.getNickname(), savedUser.getCreateDate());
+        userRepository.save(newUser);
+
+        return new UserDTO(newUser.getEmail(), newUser.getNickname(), newUser.getCreateDate());
     }
 
-    @Override
-    public UserDTO findUser(String id) throws UserDetailsNotFoundException {
+    @Override //id == seq
+    public UserDTO findUser(Long id) throws UserDetailsNotFoundException {
         // User 객체를 가져옴
-        User user = userRepository.findUserById(id).orElseThrow(() -> new UserDetailsNotFoundException("User does not exists"));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserDetailsNotFoundException("User does not exists"));
 
         // User 객체를 UserDTO로 변환
         UserDTO userDTO = new UserDTO(user.getEmail(), user.getNickname(), user.getCreateDate());
@@ -60,7 +58,7 @@ public class UserServiceImpl implements UserService {
     public User findUserByEmail(String email) throws UserDetailsNotFoundException {
         return userRepository.findUserByEmail(email).orElseThrow(()->new UserDetailsNotFoundException("User does not exists"));
     }
-    public boolean checkUserByUserId(String user_id) throws UserDetailsNotFoundException{
+    public boolean checkUserByUserId(Long user_id) throws UserDetailsNotFoundException{
         boolean flag = userRepository.existsById(user_id);
         if(flag) {
             return flag;
@@ -69,16 +67,16 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean checkUserExistsByEmailAndPassword(String email, String passWord) throws UserDetailsNotFoundException{
-        return userRepository.existsByEmailAndPassWord(email,passWord).orElseThrow(()-> new UserDetailsNotFoundException("Wrong email and password"));
+        return userRepository.existsByEmailAndPassword(email,passWord).orElseThrow(()-> new UserDetailsNotFoundException("Wrong email and password"));
     }
 
     public boolean checkUserByPassWord(String password) throws UserDetailsNotFoundException{
-        boolean flag = userRepository.existsByPassWord(password).orElseThrow(()-> new UserDetailsNotFoundException("user does not exists with password"));
+        boolean flag = userRepository.existsByPassword(password).orElseThrow(()-> new UserDetailsNotFoundException("user does not exists with password"));
         return flag;
     }
 
     public User findUserByEmailAndPassWord(String email,String password) throws UserDetailsNotFoundException{
-        User user = userRepository.findUserByEmailAndPassWord(email, password).orElseThrow(()
+        User user = userRepository.findUserByEmailAndPassword(email, password).orElseThrow(()
         -> {
                 LOGGER.error("User details not found for the email: " + email);
                 return new UserDetailsNotFoundException("User details not found for the email : " + email);

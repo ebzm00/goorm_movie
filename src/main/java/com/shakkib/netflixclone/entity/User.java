@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -15,11 +14,13 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seq;
+    private Long id;
 
     @Column(nullable = false,unique = true)
     @Getter
     private String email;
+
+    private String password;
 
     @Column(nullable = false)
     @Getter
@@ -42,11 +43,19 @@ public class User {
     private LocalDateTime updateDate;
 
     //추가: 생성자 정의
+    public User(String nickname,String email, LocalDateTime createDate, String password) {
+        this.nickname = nickname;
+        this.email = email;
+        this.createDate = LocalDateTime.now();
+        this.password = password;
+    }
+
     public User(String nickname,String email, LocalDateTime createDate) {
         this.nickname = nickname;
         this.email = email;
         this.createDate = LocalDateTime.now();
     }
+
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_accounts_id") // 외래키 매핑 명확화

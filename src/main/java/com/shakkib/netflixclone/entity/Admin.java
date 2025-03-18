@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Admin {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seq;
+    private Long id;
 
     @Column(nullable = false)
     private String email;
