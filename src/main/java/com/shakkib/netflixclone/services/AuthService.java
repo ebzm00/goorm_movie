@@ -1,6 +1,7 @@
 package com.shakkib.netflixclone.services;
 
 import com.shakkib.netflixclone.dtoes.JoinDTO;
+import com.shakkib.netflixclone.entity.Role;
 import com.shakkib.netflixclone.entity.User;
 import com.shakkib.netflixclone.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,12 +18,26 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public boolean Join(JoinDTO.Request request){
+    public boolean join(JoinDTO.Request request){
 
-        boolean userExists = userRepository.existsByEmail(request.getEmail()).orElseThrow();
+        boolean userExists = userRepository.existsByEmail(request.getEmail());
 
         if(!userExists){
             User user = new User(request, passwordEncoder);
+            userRepository.save(user);
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public boolean adminJoin(JoinDTO.Request request){
+
+        boolean userExists = userRepository.existsByEmail(request.getEmail());
+
+        if(!userExists){
+            User user = new User(request, passwordEncoder, Role.ADMIN);
             userRepository.save(user);
             return true;
         }

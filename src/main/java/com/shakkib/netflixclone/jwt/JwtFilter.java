@@ -1,6 +1,7 @@
 package com.shakkib.netflixclone.jwt;
 
 import com.shakkib.netflixclone.dtoes.CustomUserDetails;
+import com.shakkib.netflixclone.entity.Role;
 import com.shakkib.netflixclone.entity.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -47,22 +48,9 @@ public class JwtFilter extends OncePerRequestFilter {
         String email = jwtUtil.getEmail(token);
         String role = jwtUtil.getRole(token);
 
-        User user = new User();
+        User user = new User(email, Role.valueOf(role));
 
-        Member member = new Member();
-        member.setEmail(email);
-        member.setPassword("tempassword");
-        member.setRole(UserRole.valueOf(role));
-
-//        if (admin != null) {
-//            // Admin인 경우
-//            customUserDetails = new CustomUserDetails(admin);
-//        } else {
-//            // 일반 사용자인 경우
-//            customUserDetails = new CustomUserDetails(user);
-//        }
-
-        CustomUserDetails customUserDetails = new CustomUserDetails(user,);
+        CustomUserDetails customUserDetails = new CustomUserDetails(user);
 
         Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
 
@@ -71,7 +59,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         //다음 필터로 전달
         filterChain.doFilter(request, response);
-
 
     }
 }

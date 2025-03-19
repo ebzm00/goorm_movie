@@ -20,13 +20,18 @@ public class AuthController {
     @PostMapping("/join")
     public ResponseEntity<Object> join(@RequestBody JoinDTO.Request request) {
 
-        if (authService.Join(request)) return ResponseEntity.ok().build();
+        if (authService.join(request)) return ResponseEntity.ok().build();
 
         return ResponseEntity.badRequest().build();
 
-        }
-
     }
 
+    @PostMapping("/adminjointest")
+    public ResponseEntity<Object> adminJoin(@RequestBody JoinDTO.Request request) {
+
+        if (authService.adminJoin(request)) return ResponseEntity.ok().build();
+        return ResponseEntity.badRequest().build();
+
+    }
 
 }

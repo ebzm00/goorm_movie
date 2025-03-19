@@ -5,14 +5,11 @@ import com.shakkib.netflixclone.repository.UserAccountsRepository;
 import com.shakkib.netflixclone.repository.UserRepository;
 import com.shakkib.netflixclone.dtoes.UserDTO;
 import com.shakkib.netflixclone.entity.User;
-import com.shakkib.netflixclone.entity.UserAccounts;
 import com.shakkib.netflixclone.exceptions.UserDetailsNotFoundException;
 import com.shakkib.netflixclone.services.UserService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -55,7 +52,7 @@ public class UserServiceImpl implements UserService {
 //    }
 
     public Boolean checkUserByEmail(String email) throws UserDetailsNotFoundException {
-        return userRepository.existsByEmail(email).orElseThrow(() -> new UserDetailsNotFoundException("User does not exists"));
+        return userRepository.existsByEmail(email);
     }
     public User findUserByEmail(String email) throws UserDetailsNotFoundException {
         return userRepository.findUserByEmail(email).orElseThrow(()->new UserDetailsNotFoundException("User does not exists"));

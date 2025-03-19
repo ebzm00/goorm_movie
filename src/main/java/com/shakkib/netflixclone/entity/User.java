@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 public class User {
 
     @Id
@@ -25,17 +24,21 @@ public class User {
     @Getter
     private String email;
 
+    @Getter
     private String password;
 
     @Column(nullable = false)
     @Getter
     private String nickname;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String address;
 
     @Column(nullable = false)
     private boolean deleteFlag; // int -> boolean 형변환
+
+    @Getter
+    private Role role;
 
     private String CardNumber;
     private String phoneNumber;
@@ -69,7 +72,26 @@ public class User {
         this.email = request.getEmail();
         this.password = passwordEncoder.encode(request.getPassword());
         this.nickname = request.getNickname();
+        this.createDate = LocalDateTime.now();
+        this.address = "test";
+        this.role = Role.USER;
         //다른건 나중에 추가
+    }
+
+    public User(JoinDTO.Request request, PasswordEncoder passwordEncoder,Role role) {
+        this.email = request.getEmail();
+        this.password = passwordEncoder.encode(request.getPassword());
+        this.nickname = request.getNickname();
+        this.createDate = LocalDateTime.now();
+        this.address = "test";
+        this.role = Role.ADMIN;
+        //다른건 나중에 추가
+    }
+
+    public User(String email, Role role) {
+        this.email = email;
+        this.role = role;
+        this.password = "temppassword";
     }
 
     @PreUpdate

@@ -1,5 +1,6 @@
 package com.shakkib.netflixclone.dtoes;
 
+import com.shakkib.netflixclone.entity.Role;
 import com.shakkib.netflixclone.entity.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,12 +15,10 @@ import java.util.Collection;
 public class CustomUserDetails implements UserDetails {
 
     private final User user;
-    private final Role role;
 
-    public CustomUserDetails(User user, Role role) {
+    public CustomUserDetails(User user) {
 
         this.user = user;
-        this.role = role;
     }
 
     @Override
@@ -30,7 +29,7 @@ public class CustomUserDetails implements UserDetails {
         authorities.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return "User";
+                return user.getRole().name();
             }
         });
 

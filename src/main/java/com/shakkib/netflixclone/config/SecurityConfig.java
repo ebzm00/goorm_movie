@@ -49,7 +49,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-//                        .requestMatchers("/login", "/logout","/join","joinProc","/loginview","/swagger-ui/**").permitAll()
+//                        .requestMatchers("/login", "/logout","/join","joinProc").permitAll()
                         .requestMatchers("/**").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated());
