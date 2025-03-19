@@ -29,6 +29,8 @@ dependencies {
 
     // Thymeleaf (HTML 템플릿 엔진)
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+// https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testImplementation 'org.mockito:mockito-core:5.15.2'
 
     // 웹 관련 의존성
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -50,8 +52,8 @@ dependencies {
     // 이메일 관련 의존성
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-    // 보안 관련 의존성
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    // 보안 관련 의존성
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // Swagger (SpringFox 의 Swagger 설정)
     implementation 'io.springfox:springfox-boot-starter:3.0.0'  // Swagger 3.0.0 버전
