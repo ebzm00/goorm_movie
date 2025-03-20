@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "movie")
 @NoArgsConstructor
+@Getter
 public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Long id;
 //    private Long seq;
 
@@ -56,8 +56,6 @@ public class Movie {
         this.updatedAt = updatedAt;
     }
 
-
-
 //    public void updateOverview(String overview) {
 //
 //        this.overview = overview;
@@ -76,7 +74,6 @@ public class Movie {
 
     @PreUpdate
     protected void onUpdate() {
-
         this.updatedAt = LocalDateTime.now();
     }
 }

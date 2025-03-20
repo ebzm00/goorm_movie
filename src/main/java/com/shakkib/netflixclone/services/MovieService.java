@@ -17,4 +17,7 @@ public interface MovieService {
     Optional<MovieDTO> getMovieByTitle(String title);
     Optional<MovieDTO> getMovieById(Long movieId);
     List<MovieListDTO> searchMoviesByKeyword(String keyword);
+
+    //250320 GSHAM 영화 저장 메서드 추가
+    Movie saveMovie(Movie movie); //영화 저장 메서드 추가
 }

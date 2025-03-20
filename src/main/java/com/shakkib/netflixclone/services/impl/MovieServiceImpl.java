@@ -7,7 +7,6 @@ import com.shakkib.netflixclone.entity.Movie;
 import com.shakkib.netflixclone.repository.GenreRepository;
 import com.shakkib.netflixclone.repository.MovieRepository;
 import com.shakkib.netflixclone.services.MovieService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -100,5 +99,11 @@ public class MovieServiceImpl implements MovieService {
     public List<MovieListDTO> searchMoviesByKeyword(String keyword) {
         List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(keyword);
         return movies.stream().map(MovieListDTO::new).collect(Collectors.toList());
+    }
+
+    //영화 저장 메서드 추가
+    @Override
+    public Movie saveMovie(Movie movie) {
+        return movieRepository.save(movie);
     }
 }
