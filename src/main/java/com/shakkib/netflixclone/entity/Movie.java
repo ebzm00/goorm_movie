@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -59,13 +58,15 @@ public class Movie {
 
 
 
-    public void updateOverview(String overview) {
-            this.overview = overview;
-        }
-
-    public void updateTitle(String title) {
-        this.title = title;
-    }
+//    public void updateOverview(String overview) {
+//
+//        this.overview = overview;
+//        }
+//
+//    public void updateTitle(String title) {
+//
+//        this.title = title;
+//    }
 
     @PrePersist
     protected void onCreate() {
@@ -75,6 +76,7 @@ public class Movie {
 
     @PreUpdate
     protected void onUpdate() {
+
         this.updatedAt = LocalDateTime.now();
     }
 }
