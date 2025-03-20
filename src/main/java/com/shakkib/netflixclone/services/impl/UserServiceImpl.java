@@ -5,16 +5,21 @@ import com.shakkib.netflixclone.repository.UserAccountsRepository;
 import com.shakkib.netflixclone.repository.UserRepository;
 import com.shakkib.netflixclone.dtoes.UserDTO;
 import com.shakkib.netflixclone.entity.User;
+import com.shakkib.netflixclone.entity.UserAccounts;
 import com.shakkib.netflixclone.exceptions.UserDetailsNotFoundException;
 import com.shakkib.netflixclone.services.UserService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+
+@AllArgsConstructor
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -31,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(newUser);
 
-        return new UserDTO(newUser.getEmail(), newUser.getNickname(), newUser.getCreateDate());
+        return new UserDTO(newUser.getEmail(), newUser.getNickname(), newUser.getCreatedAt());
     }
 
     @Override //id == seq
@@ -40,16 +45,42 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new UserDetailsNotFoundException("User does not exists"));
 
         // User 객체를 UserDTO로 변환
-        UserDTO userDTO = new UserDTO(user.getEmail(), user.getNickname(), user.getCreateDate());
+        UserDTO userDTO = new UserDTO(user.getEmail(), user.getNickname(), user.getCreatedAt());
 
         return userDTO;
     }
 
-    //    @Override
-//    public UserDTO findUser(String id) throws UserDetailsNotFoundException {
-//        User newUser = userRepository.findUserById(id).orElseThrow(()-> new UserDetailsNotFoundException("User does not exists"));
-//        return newUser;
-//    }
+    // 250319 GSHAM 관리자 시점 사용자 계정 조회 기능 구현
+    @Override
+    public List<UserDTO> getAllUsers() {
+        try {
+            List<User> users = userRepository.findAll();
+            return users.stream()
+                    .map(user -> new UserDTO(
+                            user.getId(),          // ID
+                            user.getEmail(),       // 이메일
+                            user.getNickname(),    // 닉네임
+                            user.getCreatedAt(),  // 생성 날짜
+                            user.isDeleteFlag()    // 삭제 여부
+                    ))
+                    .collect(Collectors.toList()); // List<UserDTO>로 변환
+        } catch (Exception e) {
+            LOGGER.error("Error retrieving users: ", e);
+            throw new RuntimeException("Failed to retrieve users");
+        }
+    }
+
+    // 250319 GSHAM 사용자 상태 변경 메서드
+    public void changeUserStatus(Long userId, boolean deleteFlag) throws UserDetailsNotFoundException {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setDeleteFlag(deleteFlag); // 상태 변경
+            userRepository.save(user); //상태 변경된 사용자 저장
+        } else {
+            throw new UserDetailsNotFoundException("User not found");
+        }
+    }
 
     public Boolean checkUserByEmail(String email) throws UserDetailsNotFoundException {
         return userRepository.existsByEmail(email);

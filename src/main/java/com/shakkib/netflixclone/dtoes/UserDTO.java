@@ -11,28 +11,39 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class UserDTO {
-    private String id;
+    private Long id;
     private String nickname;
     private String email;
     private String password;
     private LocalDateTime createDate;
+    private boolean deleteFlag;
 
-    public UserDTO(String nickname, String email, LocalDateTime registeredDate) {
-        this.nickname = nickname;
+    public UserDTO(String email, String nickname,LocalDateTime registeredDate) {
         this.email = email;
-        this.createDate = LocalDateTime.now();
+        this.nickname = nickname;
+        this.createDate = registeredDate;
     }
 
     public UserDTO(String nickname, String email, String password, LocalDateTime registeredDate) {
         this.nickname = nickname;
         this.email = email;
         this.password = password;
-        this.createDate = LocalDateTime.now();
+        this.createDate = registeredDate;
     }
 
     public UserDTO(String nickname,String email) {
         this.nickname = nickname;
         this.email = email;
     }
+
+    public UserDTO(Long id, String email,String nickname,LocalDateTime createDate, boolean deleteFlag) {
+        this.id = id;
+        this.email = email;
+        this.nickname = nickname;
+        this.createDate = createDate;
+        this.deleteFlag = deleteFlag;
+    }
+
+
 
 }
