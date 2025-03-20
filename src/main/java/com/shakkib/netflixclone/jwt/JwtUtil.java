@@ -28,6 +28,11 @@ public class JwtUtil {
         return Jwts.parser().verifyWith(secretKey).build()
                 .parseClaimsJws(token).getPayload().get("role",String.class);
     }
+    public String getCategory(String token) {
+
+        return Jwts.parser().verifyWith(secretKey).build()
+                .parseSignedClaims(token).getPayload().get("category",String.class);
+    }
 
     public Boolean isTokenExpired(String token) {
         return Jwts.parser().verifyWith(secretKey).build()
@@ -35,8 +40,9 @@ public class JwtUtil {
     }
 
     //jwt 발급
-    public String createJwtToken(String email, String role, Long expiredMs) {
+    public String createJwtToken(String category, String email, String role, Long expiredMs) {
         return Jwts.builder()
+                .claim("category", category)
                 .claim("email",email)
                 .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis()))
