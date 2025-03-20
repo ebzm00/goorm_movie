@@ -23,7 +23,7 @@
     </td>
     <td align="center">
       <img src="https://avatars.githubusercontent.com/u/144045451?v=4" width="100px" height="100px"><br>
-      <a href="https://github.com/choihywon"><b>최셰원</b></a>
+      <a href="https://github.com/choihywon"><b>최혜원</b></a>
     </td>
   </tr>
 </table>
