@@ -58,15 +58,15 @@ public class Movie {
 
 
 
-    public void updateOverview(String overview) {
-
-        this.overview = overview;
-        }
-
-    public void updateTitle(String title) {
-
-        this.title = title;
-    }
+//    public void updateOverview(String overview) {
+//
+//        this.overview = overview;
+//        }
+//
+//    public void updateTitle(String title) {
+//
+//        this.title = title;
+//    }
 
     @PrePersist
     protected void onCreate() {
