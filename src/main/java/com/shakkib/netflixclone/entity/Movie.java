@@ -11,14 +11,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "movie")
-@Getter
 @NoArgsConstructor
-//@AllArgsConstructor
-//@Setter
 public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
     @Column(name = "movie_id", unique = true, nullable = false)
     private Long movieId;

@@ -118,7 +118,7 @@ public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
 
 //i havent used model mapper instead i have written my own code
     private UserDTO convertUserEntityToUserDTO(User user){
-        UserDTO userDTO = new UserDTO(user.getEmail(),user.getNickname(),user.getEmail(),user.getCreateDate());
+        UserDTO userDTO = new UserDTO(user.getEmail(),user.getNickname(),user.getEmail(),user.getCreatedAt());
         return userDTO;
     }
 
