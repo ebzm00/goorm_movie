@@ -1,0 +1,19 @@
+package com.shakkib.netflixclone.dtoes;
+
+import com.shakkib.netflixclone.entity.Movie;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class MovieListDTO {
+    private Long movieId;
+    private String title;
+    private String posterPath;
+
+    public MovieListDTO(Movie movie) {
+        this.movieId = movie.getMovieId();
+        this.title = movie.getTitle();
+        this.posterPath = movie.getPosterPath();
+    }
+}
