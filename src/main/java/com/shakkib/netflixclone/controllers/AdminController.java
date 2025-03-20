@@ -82,7 +82,7 @@ public class AdminController {
         // genreId로 Genre 엔티티 조회
         Genre genre = genreRepository.findById(movieCreateDTO.getGenreId())
                 .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 장르 ID입니다."));
-
+         /// ///
         // Movie 엔티티를 생성할 때 movieId는 제외하고, 자동 생성되도록 설정
         return new Movie(
                 null,  // id는 자동 생성 (자동 증가 전략 사용 중)
