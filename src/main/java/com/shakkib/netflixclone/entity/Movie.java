@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "movie")
 @NoArgsConstructor
+@Getter
 public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Long id;
 //    private Long seq;
 
