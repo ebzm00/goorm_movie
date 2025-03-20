@@ -19,36 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/movies/")
 public class MovieController {
-//
-//    private final MovieServiceImpl movieServiceImpl;
-//
-//    @PostMapping("/add")
-//    public String addMovieInMyList(@RequestBody MovieDTO movieDTO) {
-//        Movie movie = convertMovieDTOToMovieEntity(movieDTO);
-//        Movie response = movieServiceImpl.addMovie(movie);
-//        String s = response.getSeq() != null ? "success" : "fail";
-//        System.out.println(s);
-//        return s;
-//    }
-//
-//    @GetMapping("/allmovies/{user_id}")
-//    public ResponseEntity<List<MovieDTO>> fetchAllMoviesOfUser(@PathVariable String user_id)
-//            throws UserDetailsNotFoundException, MovieDetailsNotFoundException {
-//        movieServiceImpl.checkUser(user_id);
-//        List<Movie> movies = movieServiceImpl.fetchMovie(user_id);
-//        List<MovieDTO> movieDTOS = new ArrayList<>();
-//        for (Movie movie : movies) {
-//            movieDTOS.add(convertMovieEntityToMovieDTO(movie));
-//        }
-//        return new ResponseEntity<>(movieDTOS, HttpStatus.OK);
-//    }
-//
-//    @DeleteMapping("/delete/{movie_id}")
-//    public String deleteMovieFromUserList(@PathVariable Long movie_id) {
-//        boolean flag = movieServiceImpl.deleteMovie(movie_id);
-//        return flag ? "success" : "fail";
-//    }
-//
+
 
     private final MovieService movieService;
 
@@ -64,7 +35,7 @@ public class MovieController {
     }
 
 
-    @GetMapping("/{movieId}")
+    @GetMapping("/detail/{movieId}")
     public ResponseEntity<MovieDTO> getMovieById(@PathVariable Long movieId) {
         Optional<MovieDTO> movie = movieService.getMovieById(movieId);
         return movie.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
