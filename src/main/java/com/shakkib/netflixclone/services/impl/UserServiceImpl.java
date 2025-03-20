@@ -1,13 +1,16 @@
 package com.shakkib.netflixclone.services.impl;
 
-import com.shakkib.netflixclone.dtoes.UserResponseDTO;
+
+import com.shakkib.netflixclone.repository.UserAccountsRepository;
 import com.shakkib.netflixclone.repository.UserRepository;
 import com.shakkib.netflixclone.dtoes.UserDTO;
 import com.shakkib.netflixclone.entity.User;
+import com.shakkib.netflixclone.entity.UserAccounts;
 import com.shakkib.netflixclone.exceptions.UserDetailsNotFoundException;
 import com.shakkib.netflixclone.services.UserService;
 import lombok.AllArgsConstructor;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,14 +24,14 @@ public class UserServiceImpl implements UserService {
 
     private final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
-//    private final UserAccountsRepository userAccountsRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final UserAccountsRepository userAccountsRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
 
         // 비밀번호 해싱 후 User 저장
-//        String hashedPassword = passwordEncoder.encode(userDTO.getPassword());
+        String hashedPassword = passwordEncoder.encode(userDTO.getPassword());
         User newUser = new User(userDTO.getNickname(),userDTO.getEmail(),userDTO.getCreateDate(),userDTO.getPassword());
 
         userRepository.save(newUser);
@@ -80,7 +83,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public Boolean checkUserByEmail(String email) throws UserDetailsNotFoundException {
-        return userRepository.existsByEmail(email).orElseThrow(() -> new UserDetailsNotFoundException("User does not exists"));
+        return userRepository.existsByEmail(email);
     }
     public User findUserByEmail(String email) throws UserDetailsNotFoundException {
         return userRepository.findUserByEmail(email).orElseThrow(()->new UserDetailsNotFoundException("User does not exists"));
@@ -140,4 +143,12 @@ public class UserServiceImpl implements UserService {
         else return false;    
     }
 
+    /* GS 작업한게 아님 */
+   // @Override
+   // public List<String> moviesOfUser(String userId) {
+     //   System.out.printf("Finding movies of userList %s%n",userId);
+     //   List<String> list = userDao.findAllMoviesById(userId);
+     //   System.out.printf("Returning the saved movies of users %s%n",list.size());
+     //   return list;
+    //}
 }

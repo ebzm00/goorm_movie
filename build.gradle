@@ -51,7 +51,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     // 보안 관련 의존성
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // Swagger (SpringFox 의 Swagger 설정)
     implementation 'io.springfox:springfox-boot-starter:3.0.0'  // Swagger 3.0.0 버전
@@ -61,6 +61,11 @@ dependencies {
 
     //
     implementation 'javax.servlet:javax.servlet-api:4.0.1'  // Servlet API 추가
+
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.3' //jwt
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
 
 
 }
