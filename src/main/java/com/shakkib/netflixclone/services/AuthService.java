@@ -18,6 +18,7 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    //회원가입
     public boolean join(JoinDTO.Request request){
 
         boolean userExists = userRepository.existsByEmail(request.getEmail());
@@ -32,6 +33,7 @@ public class AuthService {
 
     }
 
+    //관리자 회원가입
     public boolean adminJoin(JoinDTO.Request request){
 
         boolean userExists = userRepository.existsByEmail(request.getEmail());

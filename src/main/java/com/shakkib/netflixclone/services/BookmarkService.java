@@ -11,9 +11,7 @@ import com.shakkib.netflixclone.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class BookmarkService {
@@ -27,6 +25,7 @@ public class BookmarkService {
         this.movieRepository = movieRepository;
     }
 
+    //북마크 등록
     public boolean addBookmark(String email, Long movieId) {
         User user = userRepository.findUserByEmail(email).orElse(null);
         Movie movie = movieRepository.findById(movieId).orElse(null);
@@ -41,6 +40,7 @@ public class BookmarkService {
         return true;
     }
 
+    //북마크 제거
     @Transactional
     public boolean removeBookmark(String email, Long movieId) {
         User user = userRepository.findUserByEmail(email).orElse(null);
@@ -54,6 +54,7 @@ public class BookmarkService {
         return true;
     }
 
+    //북마크 조회
     public List<BookMarkDTO.Response> getBookmarks(String email) {
         User user = userRepository.findUserByEmail(email).orElse(null);
         if (user == null) {return null;}

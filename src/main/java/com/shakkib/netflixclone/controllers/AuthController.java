@@ -17,6 +17,7 @@ public class AuthController {
         this.authService = authService;
     }
 
+    //회원가입
     @PostMapping("/join")
     public ResponseEntity<Object> join(@RequestBody JoinDTO.Request request) {
 
@@ -26,6 +27,7 @@ public class AuthController {
 
     }
 
+    //관리자 회원가입 테스트
     @PostMapping("/adminjointest")
     public ResponseEntity<Object> adminJoin(@RequestBody JoinDTO.Request request) {
 

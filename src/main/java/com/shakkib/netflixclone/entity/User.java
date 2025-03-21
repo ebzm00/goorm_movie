@@ -52,9 +52,6 @@ public class User {
     private LocalDateTime createdAt = LocalDateTime.now(); //자동생성
     private LocalDateTime updatedAt;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_accounts_id") // 외래키 매핑 명확화
-    private UserAccounts userAccounts;
 
     //추가: 생성자 정의
     public User(String nickname,String email, LocalDateTime createdAt, String password) {
