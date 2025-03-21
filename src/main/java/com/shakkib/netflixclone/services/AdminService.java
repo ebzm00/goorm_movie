@@ -9,4 +9,5 @@ public interface AdminService {
     List<MovieListDTO> getAllMoviesIncludingInactive();
     AdminDTO getAdminDTO(Long id);
     void deactivateMovie(Long movieId);
+    void activateMovie(Long movieId);
 }

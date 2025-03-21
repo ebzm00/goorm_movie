@@ -4,6 +4,10 @@ import com.shakkib.netflixclone.entity.Movie;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+CHW
+영화 조회 DTO
+ */
 @Getter
 @Setter
 public class MovieListDTO {
