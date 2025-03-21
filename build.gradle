@@ -50,7 +50,7 @@ dependencies {
     // 이메일 관련 의존성
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-    // 보안 관련 의존성
+//    // 보안 관련 의존성
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // Swagger (SpringFox 의 Swagger 설정)

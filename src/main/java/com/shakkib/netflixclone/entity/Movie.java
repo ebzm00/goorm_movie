@@ -40,6 +40,10 @@ public class Movie {
     @JoinColumn(name = "genre_id", nullable = false)
     private Genre genre;
 
+    @Column(nullable = false)
+    private boolean isUse = true;
+//
+
     public Movie(Long id, Long movieId, String title, String originalTitle, String posterPath,
                  boolean adult, String overview, LocalDate releaseDate, Genre genre,
                  LocalDateTime createdAt, LocalDateTime updatedAt) {
@@ -54,8 +58,8 @@ public class Movie {
         this.genre = genre;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.isUse = true;
     }
-
 //    public void updateOverview(String overview) {
 //
 //        this.overview = overview;
@@ -65,6 +69,14 @@ public class Movie {
 //
 //        this.title = title;
 //    }
+
+    public void deactivate() {
+        this.isUse = false;
+    }
+
+    public void activate() {
+        this.isUse = true;
+    }
 
     @PrePersist
     protected void onCreate() {
