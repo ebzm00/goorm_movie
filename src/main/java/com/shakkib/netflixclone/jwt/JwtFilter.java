@@ -71,6 +71,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // 토큰이 없다면 다음 필터로 넘김
         if (accessToken == null) {
+            System.out.println("Access token is null");
 
             filterChain.doFilter(request, response);
 
@@ -115,7 +116,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);
-
         filterChain.doFilter(request, response);
     }
 
