@@ -7,6 +7,7 @@ import com.shakkib.netflixclone.services.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class AdminMovieController {
     관리자 영화 목록 조회(모든 영화 조회)
     return 모든 영화
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public ResponseEntity<List<MovieListDTO>> getAllMoviesForAdmin() {
         List<MovieListDTO> movies = adminService.getAllMoviesIncludingInactive();
@@ -36,6 +38,7 @@ public class AdminMovieController {
     관리자 영화 비활성화 처리 기능
     - 영화 없을 시 예외 처리
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{movieId}/deactivate")
     public ResponseEntity<String> deactivateMovie(@PathVariable Long movieId) {
         try {
@@ -49,6 +52,7 @@ public class AdminMovieController {
         관리자 영화 활성화 처리 기능
         - 영화 없을 시 예외 처리
     */
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{movieId}/activate")
     public ResponseEntity<String> activateMovie(@PathVariable Long movieId) {
         try {
