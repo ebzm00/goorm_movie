@@ -1,12 +1,12 @@
 package com.shakkib.netflixclone.controllers;
 
+import com.shakkib.netflixclone.dtoes.CustomUserDetails;
 import com.shakkib.netflixclone.dtoes.JoinDTO;
 import com.shakkib.netflixclone.services.AuthService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AuthController {
@@ -35,5 +35,6 @@ public class AuthController {
         return ResponseEntity.badRequest().build();
 
     }
+
 
 }

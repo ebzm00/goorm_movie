@@ -1,6 +1,5 @@
 package com.shakkib.netflixclone.config;
 
-import com.shakkib.netflixclone.entity.RefreshToken;
 import com.shakkib.netflixclone.jwt.CustomLogoutFilter;
 import com.shakkib.netflixclone.jwt.JwtFilter;
 import com.shakkib.netflixclone.jwt.JwtUtil;
@@ -56,10 +55,8 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-//                        .requestMatchers("/login", "/logout","/join","/reissue").permitAll()
-                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMIN")
-                        .anyRequest().authenticated());
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                        .anyRequest().permitAll());
 
         http
                 .addFilterBefore(new JwtFilter(jwtUtil),LoginFilter.class);
