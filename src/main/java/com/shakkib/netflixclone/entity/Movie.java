@@ -42,7 +42,7 @@ public class Movie {
 
     @Column(nullable = false)
     private boolean isUse = true;
-
+//
 
     public Movie(Long id, Long movieId, String title, String originalTitle, String posterPath,
                  boolean adult, String overview, LocalDate releaseDate, Genre genre,

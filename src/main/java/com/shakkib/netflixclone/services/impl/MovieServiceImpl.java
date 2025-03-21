@@ -64,7 +64,7 @@ public class MovieServiceImpl implements MovieService {
         this.movieRepository = movieRepository;
         this.genreRepository = genreRepository;
     }
-
+//
 
 //    @Override
 //    public List<MovieListDTO> getAllMovies() {

@@ -11,7 +11,7 @@ public interface MovieService {
 //    List<Movie> fetchMovie(Long userId) throws MovieDetailsNotFoundException;
 //    Movie addMovie(Movie movie);
 //    boolean deleteMovie(Long movieId);
-
+//
     List<MovieListDTO> getAllMovies();  //
     List<MovieListDTO> getMoviesByGenre(String genre);
     Optional<MovieDTO> getMovieByTitle(String title);

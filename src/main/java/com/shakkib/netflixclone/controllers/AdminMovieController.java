@@ -16,7 +16,7 @@ import java.util.List;
 public class AdminMovieController {
 
     private final AdminService adminService;
-
+//
     @GetMapping("/all")
     public ResponseEntity<List<MovieListDTO>> getAllMoviesForAdmin() {
         List<MovieListDTO> movies = adminService.getAllMoviesIncludingInactive();
