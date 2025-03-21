@@ -33,9 +33,10 @@ public class AdminController {
     }
 
     // 모든 사용자 조회 API 250319 GSHAM
+    // isDeleteFlag 활성/비활성 여부에 따라 사용자 조회 추가 250321 GSHAM
     @GetMapping("/admin/users")
-    public List<UserDTO> getAllUsers() {
-        return userService.getAllUsers();  // UserService 인스턴스를 통해 메서드 호출
+    public List<UserDTO> getAllUsers(@RequestParam(value = "isActive", required = false) Boolean isActive) {
+        return userService.getAllUsers(isActive);  // UserService 인스턴스를 통해 메서드 호출
     }
 
     // 사용자 계정 상태 변경 (정지/해제) 250319 GSHAM
