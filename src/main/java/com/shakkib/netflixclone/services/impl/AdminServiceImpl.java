@@ -29,7 +29,10 @@ public class AdminServiceImpl implements AdminService {
                 .collect(Collectors.toList());
     }
 
-
+    /**
+     * CHW
+     * 영화 isUse를 0(비활성화) 처리함
+     */
     @Override
     public void deactivateMovie(Long movieId) {
         Movie movie = movieRepository.findById(movieId)
@@ -37,6 +40,18 @@ public class AdminServiceImpl implements AdminService {
         movie.deactivate();
         movieRepository.save(movie);
     }
+    /**
+     * CHW
+     * 영화 isUse를 1(활성화) 처리함
+     */
+    @Override
+    public void activateMovie(Long movieId) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("해당 영화가 존재하지 않습니다."));
+        movie.activate();
+        movieRepository.save(movie);
+    }
+
     public AdminDTO getAdminDTO(Long id) {
         Admin admin = adminRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Admin not found with id: " + id));

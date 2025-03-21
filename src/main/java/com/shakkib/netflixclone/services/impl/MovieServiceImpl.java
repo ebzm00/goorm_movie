@@ -13,50 +13,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
+/*
+CHW
+영화 관리 서비스
+ */
 @Service
 public class MovieServiceImpl implements MovieService {
-//
-//    private static final Logger LOGGER = LoggerFactory.getLogger(MovieServiceImpl.class);
-//
-//    private final MovieRepository movieRepository;
-//    private final UserServiceImpl userServiceImpl;
-//
-//    @Override
-//    public List<Movie> fetchMovie(Long userId) throws MovieDetailsNotFoundException {
-//        LOGGER.debug("Finding movies for user: " + userId);
-//        LOGGER.info("fetchMovie method is triggered for user: " + userId);
-//
-//        List<Movie> movies = movieRepository.findAllByUserId(userId);
-//        if (movies.isEmpty()) {
-//            throw new MovieDetailsNotFoundException("No movies found for user ID: " + userId);
-//        }
-//
-//        LOGGER.info("Returning {} movies for user {}", movies.size(), userId);
-//        return movies;
-//    }
-//
-//    @Override
-//    public Movie addMovie(Movie movie) {
-//        LOGGER.debug("Adding movie: " + movie);
-//        LOGGER.info("addMovie method triggered");
-//        return movieRepository.save(movie);
-//    }
-//
-//    @Override
-//    public boolean deleteMovie(Long movieId) {
-//        LOGGER.debug("Deleting movie with ID: " + movieId);
-//        if (!movieRepository.existsById(movieId)) {
-//            LOGGER.warn("Movie with ID {} not found", movieId);
-//            return false;
-//        }
-//        movieRepository.deleteById(movieId);
-//        return true;
-//    }
-//
-//    public boolean checkUser(Long userId) throws UserDetailsNotFoundException {
-//        return userServiceImpl.checkUserByUserId(userId);
-//    }
+
     private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
 
@@ -71,8 +34,13 @@ public class MovieServiceImpl implements MovieService {
 //        List<Movie> movies = movieRepository.findAll();
 //        return movies.stream().map(MovieListDTO::new).collect(Collectors.toList());
 //    }
+    /**
+     * CHW
+     * 활성화된(isUse = true) 모든 영화를 조회
+     */
     @Override
     public List<MovieListDTO> getAllMovies() {
+        /* 활성화 체크 부분 */
         return movieRepository.findAllByIsUseTrue()
                 .stream()
                 .map(MovieListDTO::new)
@@ -80,33 +48,84 @@ public class MovieServiceImpl implements MovieService {
     }
 
 
+//    @Override
+//    public Optional<MovieDTO> getMovieById(Long movieId) {
+//        return movieRepository.findById(movieId).map(MovieDTO::new);
+//    }
+    /**
+     * CHW
+     * 특정 ID 영화 조회
+     */
     @Override
     public Optional<MovieDTO> getMovieById(Long movieId) {
-        return movieRepository.findById(movieId).map(MovieDTO::new);
+        return movieRepository.findByIdAndIsUseTrue(movieId) //활성화 체크 부분
+                .map(MovieDTO::new);
     }
 
 
+//    @Override
+//    public List<MovieListDTO> getMoviesByGenre(String genreName) {
+//        Optional<Genre> genre = genreRepository.findByGenreIgnoreCase(genreName);
+//        if (genre.isEmpty())
+//            return List.of();
+//        List<Movie> movies = movieRepository.findByGenre(genre.get());
+//        return movies.stream().map(MovieListDTO::new).collect(Collectors.toList());
+//    }
+    /**
+     * CHW
+     * 장르별 영화를 조회
+     */
     @Override
     public List<MovieListDTO> getMoviesByGenre(String genreName) {
         Optional<Genre> genre = genreRepository.findByGenreIgnoreCase(genreName);
         if (genre.isEmpty())
             return List.of();
-        List<Movie> movies = movieRepository.findByGenre(genre.get());
+
+        List<Movie> movies = movieRepository.findByGenreAndIsUseTrue(genre.get());
         return movies.stream().map(MovieListDTO::new).collect(Collectors.toList());
     }
 
 
+
+//    @Override
+//    public Optional<MovieDTO> getMovieByTitle(String title) {
+//        return movieRepository.findFirstByTitleIgnoreCase(title).map(MovieDTO::new);
+//    }
+    /**
+     * CHW
+     * 타이틀별 영화 조회
+     */
     @Override
     public Optional<MovieDTO> getMovieByTitle(String title) {
-        return movieRepository.findFirstByTitleIgnoreCase(title).map(MovieDTO::new);
+        return movieRepository.findFirstByTitleIgnoreCaseAndIsUseTrue(title)
+                .map(MovieDTO::new);
     }
 
+//    @Override
+//    public List<MovieListDTO> searchMoviesByKeyword(String keyword) {
+//        List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(keyword);
+//        return movies.stream().map(MovieListDTO::new).collect(Collectors.toList());
+//    }
 
+
+
+//    @Override
+//    public List<MovieListDTO> searchMoviesByKeyword(String keyword) {
+//        List<Movie> movies = movieRepository.findByTitleContainingIgnoreCaseAndIsUseTrue(keyword);
+//        return movies.stream()
+//                .map(MovieListDTO::new)
+//                .collect(Collectors.toList());
+//    }
+    /**
+     * CHW
+     * 키워드로 영화 조회
+     */
     @Override
     public List<MovieListDTO> searchMoviesByKeyword(String keyword) {
-        List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(keyword);
+        List<Movie> movies = movieRepository.searchMoviesWithKeyword(keyword);
         return movies.stream().map(MovieListDTO::new).collect(Collectors.toList());
     }
+
 
     //영화 저장 메서드 추가
     @Override
