@@ -13,7 +13,7 @@ public interface MovieRepository extends JpaRepository<Movie,Long> {
     //    Optional<List<Movie>> findAllByUserId(Long id);
 //    List<Movie> findAllByUserId(Long userId);
     Optional<Movie> findFirstByTitleIgnoreCase(String title);
-
+    List<Movie> findAllByIsUseTrue();
     List<Movie> findByGenre(Genre genre);
 
     List<Movie> findByTitleContainingIgnoreCase(String keyword);

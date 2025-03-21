@@ -66,10 +66,17 @@ public class MovieServiceImpl implements MovieService {
     }
 
 
+//    @Override
+//    public List<MovieListDTO> getAllMovies() {
+//        List<Movie> movies = movieRepository.findAll();
+//        return movies.stream().map(MovieListDTO::new).collect(Collectors.toList());
+//    }
     @Override
     public List<MovieListDTO> getAllMovies() {
-        List<Movie> movies = movieRepository.findAll();
-        return movies.stream().map(MovieListDTO::new).collect(Collectors.toList());
+        return movieRepository.findAllByIsUseTrue()
+                .stream()
+                .map(MovieListDTO::new)
+                .collect(Collectors.toList());
     }
 
 
