@@ -23,6 +23,7 @@ public class ReissueController {
         this.jwtUtil = jwtUtil;
     }
 
+    //토큰 재발급
     @PostMapping("reissue") //refresh 토큰을 이용한 재발급
     public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
 

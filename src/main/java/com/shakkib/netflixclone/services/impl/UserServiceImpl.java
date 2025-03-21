@@ -1,11 +1,9 @@
 package com.shakkib.netflixclone.services.impl;
 
 
-import com.shakkib.netflixclone.repository.UserAccountsRepository;
 import com.shakkib.netflixclone.repository.UserRepository;
 import com.shakkib.netflixclone.dtoes.UserDTO;
 import com.shakkib.netflixclone.entity.User;
-import com.shakkib.netflixclone.entity.UserAccounts;
 import com.shakkib.netflixclone.exceptions.UserDetailsNotFoundException;
 import com.shakkib.netflixclone.services.UserService;
 import lombok.AllArgsConstructor;
@@ -24,7 +22,6 @@ public class UserServiceImpl implements UserService {
 
     private final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
-    private final UserAccountsRepository userAccountsRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
