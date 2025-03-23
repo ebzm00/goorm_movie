@@ -12,8 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie,Long> {
-    //    Optional<List<Movie>> findAllByUserId(Long id);
-//    List<Movie> findAllByUserId(Long userId);
+
     Optional<Movie> findFirstByTitleIgnoreCase(String title);
     /**
      * CHW

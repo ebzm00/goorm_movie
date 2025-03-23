@@ -82,14 +82,7 @@ public class MovieController {
         사용자  % 검색 영화 목록 조회
         (활성화 처리 된 것만 볼 수 있음)
     */
-//    @GetMapping("/search")
-//    public ResponseEntity<List<MovieListDTO>> searchMoviesByKeyword(@RequestParam String keyword) {
-//        List<MovieListDTO> movies = movieService.searchMoviesByKeyword(keyword);
-//        if (movies.isEmpty()) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(movies);
-//    }
+
     @GetMapping("/search")
     public ResponseEntity<List<MovieListDTO>> searchMoviesByKeyword(@RequestParam String keyword) {
         List<MovieListDTO> movies = movieService.searchMoviesByKeyword(keyword);

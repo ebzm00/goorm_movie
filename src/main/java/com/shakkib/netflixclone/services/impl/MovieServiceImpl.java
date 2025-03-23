@@ -27,13 +27,7 @@ public class MovieServiceImpl implements MovieService {
         this.movieRepository = movieRepository;
         this.genreRepository = genreRepository;
     }
-//
 
-//    @Override
-//    public List<MovieListDTO> getAllMovies() {
-//        List<Movie> movies = movieRepository.findAll();
-//        return movies.stream().map(MovieListDTO::new).collect(Collectors.toList());
-//    }
     /**
      * CHW
      * 활성화된(isUse = true) 모든 영화를 조회
@@ -48,10 +42,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
 
-//    @Override
-//    public Optional<MovieDTO> getMovieById(Long movieId) {
-//        return movieRepository.findById(movieId).map(MovieDTO::new);
-//    }
+
     /**
      * CHW
      * 특정 ID 영화 조회
@@ -63,14 +54,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
 
-//    @Override
-//    public List<MovieListDTO> getMoviesByGenre(String genreName) {
-//        Optional<Genre> genre = genreRepository.findByGenreIgnoreCase(genreName);
-//        if (genre.isEmpty())
-//            return List.of();
-//        List<Movie> movies = movieRepository.findByGenre(genre.get());
-//        return movies.stream().map(MovieListDTO::new).collect(Collectors.toList());
-//    }
+
     /**
      * CHW
      * 장르별 영화를 조회
@@ -87,10 +71,7 @@ public class MovieServiceImpl implements MovieService {
 
 
 
-//    @Override
-//    public Optional<MovieDTO> getMovieByTitle(String title) {
-//        return movieRepository.findFirstByTitleIgnoreCase(title).map(MovieDTO::new);
-//    }
+
     /**
      * CHW
      * 타이틀별 영화 조회
@@ -101,21 +82,7 @@ public class MovieServiceImpl implements MovieService {
                 .map(MovieDTO::new);
     }
 
-//    @Override
-//    public List<MovieListDTO> searchMoviesByKeyword(String keyword) {
-//        List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(keyword);
-//        return movies.stream().map(MovieListDTO::new).collect(Collectors.toList());
-//    }
 
-
-
-//    @Override
-//    public List<MovieListDTO> searchMoviesByKeyword(String keyword) {
-//        List<Movie> movies = movieRepository.findByTitleContainingIgnoreCaseAndIsUseTrue(keyword);
-//        return movies.stream()
-//                .map(MovieListDTO::new)
-//                .collect(Collectors.toList());
-//    }
     /**
      * CHW
      * 키워드로 영화 조회
