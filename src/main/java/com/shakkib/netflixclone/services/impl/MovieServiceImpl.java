@@ -123,5 +123,5 @@ public class MovieServiceImpl implements MovieService {
                     LocalDateTime.now(),  // createdAt - 현재 시간
                     LocalDateTime.now()   // updatedAt - 현재 시간
             );
-        }
+        } 
 }
