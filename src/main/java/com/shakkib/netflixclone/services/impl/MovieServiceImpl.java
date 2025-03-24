@@ -1,5 +1,6 @@
 package com.shakkib.netflixclone.services.impl;
 
+import com.shakkib.netflixclone.dtoes.MovieCreateDTO;
 import com.shakkib.netflixclone.dtoes.MovieDTO;
 import com.shakkib.netflixclone.dtoes.MovieListDTO;
 import com.shakkib.netflixclone.entity.Genre;
@@ -9,6 +10,7 @@ import com.shakkib.netflixclone.repository.MovieRepository;
 import com.shakkib.netflixclone.services.MovieService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -99,4 +101,27 @@ public class MovieServiceImpl implements MovieService {
     public Movie saveMovie(Movie movie) {
         return movieRepository.save(movie);
     }
+
+        //250321 GSHAM 관리자 계정 영화 등록 메서드 구현
+        @Override
+        public Movie convertMovieDTOToMovieEntity(MovieCreateDTO movieCreateDTO) {
+            // genreId로 Genre 엔티티 조회
+            Genre genre = genreRepository.findById(movieCreateDTO.getGenreId())
+                    .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 장르 ID입니다."));
+
+            // Movie 엔티티를 생성할 때 movieId는 제외하고, 자동 생성되도록 설정
+            return new Movie(
+                    null,  // id는 자동 생성 (자동 증가 전략 사용 중)
+                    movieCreateDTO.getMovieId(),  // movieId는 수동으로 설정
+                    movieCreateDTO.getTitle(),
+                    movieCreateDTO.getOriginalTitle(),
+                    movieCreateDTO.getPosterPath(),
+                    movieCreateDTO.isAdult(),
+                    movieCreateDTO.getOverview(),
+                    movieCreateDTO.getReleaseDate(),
+                    genre,  // 조회된 Genre 엔티티 설정
+                    LocalDateTime.now(),  // createdAt - 현재 시간
+                    LocalDateTime.now()   // updatedAt - 현재 시간
+            );
+        }
 }
