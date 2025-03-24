@@ -13,6 +13,7 @@ import com.shakkib.netflixclone.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -20,12 +21,12 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@PreAuthorize("hasAuthority('ADMIN')") // 모든 메서드에 적용될 기본 권한 제한
 public class AdminController {
 
     private final AdminService adminService;
     private final UserService userService;  // UserService 주입
     private final MovieService movieService; // movieService 주입
-    private final GenreRepository genreRepository;
 
     @GetMapping("/admin/{id}")
     public AdminDTO getAdmin(@PathVariable Long id) {
@@ -58,11 +59,10 @@ public class AdminController {
 
     // 250320 GSHAM 영화 저장 메서드 엔드포인트
     @PostMapping("/admin/reg")
-// @PreAuthorize("hasRole('ADMIN')") // 관리자만 접근 가능하도록 설정 (Spring Security 사용 시)
     public ResponseEntity<String> addMovie(@RequestBody MovieCreateDTO movieCreateDTO) {
         try {
             // MovieCreateDTO를 Movie 엔티티로 변환
-            Movie movie = convertMovieDTOToMovieEntity(movieCreateDTO);
+            Movie movie = movieService.convertMovieDTOToMovieEntity(movieCreateDTO);
 
             // 영화 저장
             movieService.saveMovie(movie);
@@ -77,27 +77,6 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("영화 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.");
         }
-    }
-
-    private Movie convertMovieDTOToMovieEntity(MovieCreateDTO movieCreateDTO) {
-        // genreId로 Genre 엔티티 조회
-        Genre genre = genreRepository.findById(movieCreateDTO.getGenreId())
-                .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 장르 ID입니다."));
-
-        // Movie 엔티티를 생성할 때 movieId는 제외하고, 자동 생성되도록 설정
-        return new Movie(
-                null,  // id는 자동 생성 (자동 증가 전략 사용 중)
-                movieCreateDTO.getMovieId(),  // movieId는 수동으로 설정
-                movieCreateDTO.getTitle(),
-                movieCreateDTO.getOriginalTitle(),
-                movieCreateDTO.getPosterPath(),
-                movieCreateDTO.isAdult(),
-                movieCreateDTO.getOverview(),
-                movieCreateDTO.getReleaseDate(),
-                genre,  // 조회된 Genre 엔티티 설정
-                LocalDateTime.now(),  // createdAt - 현재 시간
-                LocalDateTime.now()   // updatedAt - 현재 시간
-        );
     }
 }
 

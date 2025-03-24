@@ -40,6 +40,8 @@ public class User {
     private boolean deleteFlag; // int -> boolean 형변환
 
     @Getter
+    // 250324 GSHAM 열거형을 문자열로 저장 (ADMIN, USER 등)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     private String CardNumber;

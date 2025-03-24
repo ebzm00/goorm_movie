@@ -9,7 +9,6 @@ import com.shakkib.netflixclone.repository.MovieRepository;
 import com.shakkib.netflixclone.services.AdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
