@@ -1,6 +1,4 @@
-
 package com.shakkib.netflixclone.controllers;
-
 
 import com.shakkib.netflixclone.dtoes.MovieListDTO;
 import com.shakkib.netflixclone.services.AdminService;
@@ -34,13 +32,14 @@ public class AdminMovieController {
         return ResponseEntity.ok(movies);
     }
 
-    /* 20250321 CHW
-    관리자 영화 비활성화 처리 기능
-    - 영화 없을 시 예외 처리
+    /*
+     20250321 CHW
+     관리자 영화 비활성화 처리 기능
+     - 영화 없을 시 예외 처리
      */
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{movieId}/deactivate")
-    public ResponseEntity<String> deactivateMovie(@PathVariable Long movieId) {
+    public ResponseEntity<String> deactivateMovie(@PathVariable("movieId") Long movieId) {
         try {
             adminService.deactivateMovie(movieId);
             return ResponseEntity.ok("영화가 비활성화되었습니다.");
@@ -48,13 +47,15 @@ public class AdminMovieController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 영화를 찾을 수 없습니다.");
         }
     }
-    /* 20250321 CHW
-        관리자 영화 활성화 처리 기능
-        - 영화 없을 시 예외 처리
-    */
+
+    /*
+     20250321 CHW
+     관리자 영화 활성화 처리 기능
+     - 영화 없을 시 예외 처리
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{movieId}/activate")
-    public ResponseEntity<String> activateMovie(@PathVariable Long movieId) {
+    public ResponseEntity<String> activateMovie(@PathVariable("movieId") Long movieId) {
         try {
             adminService.activateMovie(movieId);
             return ResponseEntity.ok("영화가 다시 활성화되었습니다.");
@@ -62,6 +63,5 @@ public class AdminMovieController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 영화를 찾을 수 없습니다.");
         }
     }
-
 
 }
