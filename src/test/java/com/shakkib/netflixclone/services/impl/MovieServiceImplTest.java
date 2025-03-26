@@ -1,5 +1,6 @@
 package com.shakkib.netflixclone.services.impl;
 
+import com.shakkib.netflixclone.dtoes.MovieCreateDTO;
 import com.shakkib.netflixclone.dtoes.MovieListDTO;
 import com.shakkib.netflixclone.entity.Genre;
 import com.shakkib.netflixclone.entity.Movie;
@@ -23,7 +24,9 @@ import java.util.stream.IntStream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MovieServiceImplTest {
@@ -85,8 +88,9 @@ class MovieServiceImplTest {
         assertThat(result.get(1).getTitle()).contains("아이언");
     }
 
-    @DisplayName("특정 키워드만 반환한다")
+
     @Test
+    @DisplayName("특정 키워드만 반환한다")
     void searchMoviesByKeyword_shouldReturnMoviesStartingWithKeyword() {
         // given
         Genre genre = new Genre(); // 장르는 지금 상관없으니 빈 객체로
@@ -145,8 +149,10 @@ class MovieServiceImplTest {
         assertThat(result).allMatch(movie -> movie.getTitle().startsWith("아이"));
         System.out.println("Execution time: " + (end - start) + " ms");
     }
-    @DisplayName("장르 이름으로 영화 리스트를 가져올 수 있다")
+
+
     @Test
+    @DisplayName("장르 이름으로 영화 리스트를 가져올 수 있다")
     void getMoviesByGenre_shouldReturnListOfMovieListDTO_whenGenreExists() {
         // given
         String genreName = "Action";
@@ -164,8 +170,10 @@ class MovieServiceImplTest {
         assertEquals(1, result.size());
         assertEquals("Test Title", result.get(0).getTitle());
     }
-    @DisplayName("존재하지 않는 장르일 경우 빈 리스트를 반환한다")
+
+
     @Test
+    @DisplayName("존재하지 않는 장르일 경우 빈 리스트를 반환한다")
     void getMoviesByGenre_shouldReturnEmptyList_whenGenreNotFound() {
         // given
         String genreName = "Fantasy";
@@ -210,5 +218,74 @@ class MovieServiceImplTest {
         assertThat(result).hasSize(10000);
     }
 
+    @Test
+    @DisplayName("비활성화된 영화는 조회 결과에 포함되지 않는다")
+    void getAllMovies_shouldExcludeInactiveMovies() {
+        // given
+        Movie activeMovie = new Movie(1L, 101L, "Active Movie", "Original", "poster.jpg", false, "desc", LocalDate.now(), new Genre(), LocalDateTime.now(), LocalDateTime.now());
+        Movie inactiveMovie = new Movie(2L, 102L, "Inactive Movie", "Original", "poster.jpg", false, "desc", LocalDate.now(), new Genre(), LocalDateTime.now(), LocalDateTime.now());
 
+        // 비활성화 시키기
+        inactiveMovie.deactivate();
+
+        List<Movie> movies = List.of(activeMovie); // DB에선 비활성화된 영화는 안 꺼내겠지
+
+        when(movieRepository.findAllByIsUseTrue()).thenReturn(movies);
+
+        // when
+        List<MovieListDTO> result = movieService.getAllMovies();
+
+        // then
+        assertThat(result).hasSize(1);
+        assertThat(result.get(0).getTitle()).isEqualTo("Active Movie");
+    }
+    // saveMovie() 메소드에 대한 텍스트
+    @Test
+    @DisplayName("영화 저장")
+    public void testSaveMovie() {
+        // given : 테스트를 위한 가짜 Movie 객체 생성 및 동작 정의
+        Movie movie = new Movie();
+        movie.setTitle("Test Movie");
+
+        // movieRepository의 save 메소드 호출 시 가짜 Movie 객체를 반환하도록 설정
+        when(movieRepository.save(any(Movie.class))).thenReturn(movie);
+
+        // when : 테스트 대상 메소드 호출
+        Movie savedMovie = movieService.saveMovie(movie);
+
+        // then : 결과 검증 - 저장된 Movie 객체의 제목이 동일한지 확인
+        assertThat(savedMovie.getTitle()).isEqualTo("Test Movie");
+        //save 메소드 호출 횟수 검증
+        verify(movieRepository, times(1)).save(movie);
+    }
+
+    // convertMovieDTOToMovieEntity() 메소드에 대한 테스트
+    @Test
+    @DisplayName("영화컨버터")
+    public void testConvertMovieDTOToMovieEntity() {
+        // given: 가짜 Genre 객체와 MovieCreateDTO 객체 생성
+        Genre genre = new Genre();
+        genre.setId(1L);
+        genre.setGenre("Action");
+
+        MovieCreateDTO movieCreateDTO = new MovieCreateDTO();
+        movieCreateDTO.setGenreId(1L);
+        movieCreateDTO.setTitle("Converted Movie");
+
+        // genreRepository의 findById 메소드 호출 시 가짜 Genre 객체를 반환하도록 설정
+        when(genreRepository.findById(anyLong())).thenReturn(Optional.of(genre));
+
+        // when : 테스트 대상 메소드 호출
+        Movie movie = movieService.convertMovieDTOToMovieEntity(movieCreateDTO);
+
+        //then: 변환된 Movie 객체의 제목과 장르가 기대한 대로 설정되었는지 확인
+        assertThat(movie.getTitle()).isEqualTo("Converted Movie");
+
+        // 장르의 ID와 이름이 잘 설정 되었는지 검증
+        assertThat(movie.getGenre()).isNotNull(); //Genre가 null이 아닌지 확인
+        assertThat(movie.getGenre().getId()).isEqualTo(1L); // Genre ID 확인
+        assertThat(movie.getGenre().getGenre()).isEqualTo("Action"); // Genre 이름 확인
+        // findById 메소드 호출 횟수 검증
+        verify(genreRepository, times(1)).findById(1L);
+    }
 }

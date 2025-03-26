@@ -80,4 +80,8 @@ public class Movie {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }
