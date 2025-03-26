@@ -20,4 +20,11 @@ public class MovieListDTO {
         this.title = movie.getTitle();
         this.posterPath = movie.getPosterPath();
     }
+
+    public MovieListDTO(Long movieId, String title, String posterPath) {
+        this.movieId = movieId;
+        this.title = title;
+        this.posterPath = posterPath;
+    }
+
 }
