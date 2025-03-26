@@ -102,4 +102,8 @@ public class User {
         this.deleteFlag = deleteFlag;
     }
 
+    //Test 코드 작성
+    public User(long l, String mail, String testUser1, LocalDateTime now, boolean b) {
+    }
+
 }
