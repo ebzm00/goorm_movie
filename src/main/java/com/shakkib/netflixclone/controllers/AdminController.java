@@ -49,7 +49,7 @@ public class AdminController {
             // UserService의 changeUserStatus 메서드 호출
             userService.changeUserStatus(userId, deleteFlag);
             String status = deleteFlag ? "비활성화되었습니다." : "활성화되었습니다.";
-            return ResponseEntity.ok("사용자 상태가"+ status);
+            return ResponseEntity.ok("사용자 상태가 "+ status);
         } catch (UserDetailsNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
