@@ -24,46 +24,6 @@ public class JwtFilter extends OncePerRequestFilter {
         this.jwtUtil = jwtUtil;
     }
 
-//    @Override
-//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-//
-//        //헤더
-//        String authorizationHeader = request.getHeader("Authorization");
-//
-//        //헤더가 null이 아니고 Bearer로 시작
-//        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-//            filterChain.doFilter(request, response);
-//            return;
-//        }
-//        //"Bearer " 다음 값
-//        String token = authorizationHeader.split(" ")[1];
-//
-//        //토큰 만료 검증
-//        if(jwtUtil.isTokenExpired(token)) {
-//
-//            System.out.println("token expired");
-//            filterChain.doFilter(request, response);
-//
-//            return;
-//        }
-//
-//        String email = jwtUtil.getEmail(token);
-//        String role = jwtUtil.getRole(token);
-//
-//        User user = new User(email, Role.valueOf(role));
-//
-//        CustomUserDetails customUserDetails = new CustomUserDetails(user);
-//
-//        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
-//
-//        //요청이 끝날 때 까지만 지속되는 임시 세션
-//        SecurityContextHolder.getContext().setAuthentication(authToken);
-//
-//        //다음 필터로 전달
-//        filterChain.doFilter(request, response);
-//
-//    }
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // 헤더에서 access키에 담긴 토큰을 꺼냄
@@ -92,7 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-// 토큰이 access인지 확인 (발급시 페이로드에 명시)
+        // 토큰이 access인지 확인 (발급시 페이로드에 명시)
         String category = jwtUtil.getCategory(accessToken);
 
         if (!category.equals("access")) {
@@ -106,7 +66,7 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-// username, role 값을 획득
+        // username, role 값을 획득
         String email = jwtUtil.getEmail(accessToken);
         String role = jwtUtil.getRole(accessToken);
 

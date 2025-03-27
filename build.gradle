@@ -60,6 +60,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testImplementation 'org.mockito:mockito-inline:5.2.0'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     implementation 'javax.servlet:javax.servlet-api:4.0.1'  // Servlet API 추가
 

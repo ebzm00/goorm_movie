@@ -1,4 +1,4 @@
-package com.shakkib.netflixclone.services;
+package com.shakkib.netflixclone.services.impl;
 
 import com.shakkib.netflixclone.dtoes.BookMarkDTO;
 import com.shakkib.netflixclone.entity.BookMark;
@@ -11,6 +11,7 @@ import com.shakkib.netflixclone.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -30,8 +31,12 @@ public class BookmarkService {
         User user = userRepository.findUserByEmail(email).orElse(null);
         Movie movie = movieRepository.findById(movieId).orElse(null);
 
-        if (user == null) {return false;}
-        if (movie == null) {return false;}
+        if (user == null) {
+            return false;
+        }
+        if (movie == null) {
+            return false;
+        }
 
         BookMark bookmark = new BookMark(user,movie);
 
@@ -42,7 +47,7 @@ public class BookmarkService {
 
     //북마크 제거
     @Transactional
-    public boolean removeBookmark(String email, Long movieId) {
+    public boolean deleteBookmark(String email, Long movieId) {
         User user = userRepository.findUserByEmail(email).orElse(null);
         Movie movie = movieRepository.findById(movieId).orElse(null);
 
@@ -57,7 +62,7 @@ public class BookmarkService {
     //북마크 조회
     public List<BookMarkDTO.Response> getBookmarks(String email) {
         User user = userRepository.findUserByEmail(email).orElse(null);
-        if (user == null) {return null;}
+        if (user == null) {return Collections.emptyList();}
 
         List<BookMark> bookmarks = bookmarkRepository.findAllByUser(user);
 

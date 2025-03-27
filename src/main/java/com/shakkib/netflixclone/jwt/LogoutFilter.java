@@ -13,12 +13,12 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 
-public class CustomLogoutFilter extends GenericFilterBean {
+public class LogoutFilter extends GenericFilterBean {
 
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtUtil jwtUtil;
 
-    public CustomLogoutFilter(RefreshTokenRepository refreshTokenRepository, JwtUtil jwtUtil) {
+    public LogoutFilter(RefreshTokenRepository refreshTokenRepository, JwtUtil jwtUtil) {
         this.refreshTokenRepository = refreshTokenRepository;
         this.jwtUtil = jwtUtil;
     }
@@ -33,7 +33,7 @@ public class CustomLogoutFilter extends GenericFilterBean {
 
         //path, method 확인
         String requestUri = request.getRequestURI();
-        if(!requestUri.matches("^\\/logout")) {
+        if(!requestUri.matches("^/logout")) {
 
             chain.doFilter(request, response);
             return;
@@ -47,7 +47,6 @@ public class CustomLogoutFilter extends GenericFilterBean {
 
         //refresh 토큰 가져오기
         String refresh = null;
-        System.out.println("beforeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("refresh")) {
@@ -55,7 +54,6 @@ public class CustomLogoutFilter extends GenericFilterBean {
             }
         }
 
-        System.out.println("afterrrrrrrrrrrrrrrrrrrrrrr");
         //null check
         if (refresh == null) {
 
