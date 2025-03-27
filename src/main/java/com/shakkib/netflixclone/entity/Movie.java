@@ -76,6 +76,11 @@ public class Movie {
 //        this.title = title;
 //    }
 
+
+    public void activate() {
+        this.isUse = true;
+    }
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
