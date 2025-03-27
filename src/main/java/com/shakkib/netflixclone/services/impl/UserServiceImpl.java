@@ -48,10 +48,17 @@ public class UserServiceImpl implements UserService {
     }
 
     // 250319 GSHAM 관리자 시점 사용자 계정 조회 기능 구현
+    // 250321 GSHAM isActive에 따라 조건적 조회 추가
     @Override
-    public List<UserDTO> getAllUsers() {
+    public List<UserDTO> getAllUsers(Boolean isActive) {
         try {
-            List<User> users = userRepository.findAll();
+            List<User> users;
+
+            if (isActive == null) { // 모든 사용자 조회
+                users = userRepository.findAll();
+            } else {
+                users = userRepository.findByDeleteFlag(!isActive); // isActive = false면  비활성 사용자 조회
+            }
             return users.stream()
                     .map(user -> new UserDTO(
                             user.getId(),          // ID

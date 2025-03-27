@@ -27,4 +27,8 @@ public class Genre {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 }

@@ -16,7 +16,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    private Long seq;
+
 
     @Column(name = "movie_id", unique = true, nullable = false)
     private Long movieId;
@@ -40,6 +40,10 @@ public class Movie {
     @JoinColumn(name = "genre_id", nullable = false)
     private Genre genre;
 
+    @Column(nullable = false)
+    private boolean isUse = true;
+
+
     public Movie(Long id, Long movieId, String title, String originalTitle, String posterPath,
                  boolean adult, String overview, LocalDate releaseDate, Genre genre,
                  LocalDateTime createdAt, LocalDateTime updatedAt) {
@@ -54,11 +58,12 @@ public class Movie {
         this.genre = genre;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.isUse = true;
     }
 
-    public Movie(Long movieId, String mockTestMovie) {
-        this.movieId = movieId;
-        this.title = mockTestMovie;
+
+    public void deactivate() {
+        this.isUse = false;
     }
 
 //    public void updateOverview(String overview) {
@@ -80,5 +85,9 @@ public class Movie {
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

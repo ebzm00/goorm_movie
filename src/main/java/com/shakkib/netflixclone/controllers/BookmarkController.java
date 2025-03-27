@@ -4,6 +4,7 @@ import com.shakkib.netflixclone.dtoes.BookMarkDTO;
 import com.shakkib.netflixclone.dtoes.CustomUserDetails;
 import com.shakkib.netflixclone.services.impl.BookmarkService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 

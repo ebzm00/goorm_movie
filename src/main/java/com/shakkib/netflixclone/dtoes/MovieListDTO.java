@@ -4,6 +4,10 @@ import com.shakkib.netflixclone.entity.Movie;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+CHW
+영화 조회 DTO
+ */
 @Getter
 @Setter
 public class MovieListDTO {
@@ -16,4 +20,11 @@ public class MovieListDTO {
         this.title = movie.getTitle();
         this.posterPath = movie.getPosterPath();
     }
+
+    public MovieListDTO(Long movieId, String title, String posterPath) {
+        this.movieId = movieId;
+        this.title = title;
+        this.posterPath = posterPath;
+    }
+
 }

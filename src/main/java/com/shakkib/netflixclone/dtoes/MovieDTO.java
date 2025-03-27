@@ -4,7 +4,10 @@ import com.shakkib.netflixclone.entity.Movie;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
-
+/*
+CHW
+영화 Detail 조회 DTO
+ */
 @Getter
 @Setter
 public class MovieDTO {
