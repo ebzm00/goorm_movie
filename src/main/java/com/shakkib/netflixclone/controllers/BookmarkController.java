@@ -2,7 +2,7 @@ package com.shakkib.netflixclone.controllers;
 
 import com.shakkib.netflixclone.dtoes.BookMarkDTO;
 import com.shakkib.netflixclone.dtoes.CustomUserDetails;
-import com.shakkib.netflixclone.services.BookmarkService;
+import com.shakkib.netflixclone.services.impl.BookmarkService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -40,7 +40,7 @@ public class BookmarkController {
     @DeleteMapping("/{movieId}")
     public ResponseEntity<?> deleteBookmark(@AuthenticationPrincipal CustomUserDetails customUserDetails ,@PathVariable("movieId") Long movieId) {
         String email = customUserDetails.getEmail();
-        if (bookmarkService.removeBookmark(email, movieId)) {
+        if (bookmarkService.deleteBookmark(email, movieId)) {
             return ResponseEntity.ok().build();
         }
 
@@ -52,7 +52,8 @@ public class BookmarkController {
     public List<BookMarkDTO.Response> getAllBookmarks(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         String email = customUserDetails.getEmail();
 
-        return bookmarkService.getBookmarks(email);
+        List<BookMarkDTO.Response> bookmarks = bookmarkService.getBookmarks(email);
 
+        return bookmarks;
     }
 }

@@ -66,9 +66,15 @@ public class Movie {
         this.isUse = false;
     }
 
-    public void activate() {
-        this.isUse = true;
-    }
+//    public void updateOverview(String overview) {
+//
+//        this.overview = overview;
+//        }
+//
+//    public void updateTitle(String title) {
+//
+//        this.title = title;
+//    }
 
     @PrePersist
     protected void onCreate() {
