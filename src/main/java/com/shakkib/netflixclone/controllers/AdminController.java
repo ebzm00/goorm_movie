@@ -42,9 +42,9 @@ public class AdminController {
 
     // 사용자 계정 상태 변경 (정지/해제) 250319 GSHAM
     @PutMapping("/admin/users/{userId}/suspend")
-    public ResponseEntity<String> changeUserStatus (
-            @PathVariable Long userId,
-            @RequestParam boolean deleteFlag) {
+    public ResponseEntity<String> changeUserStatus(
+            @PathVariable("userId") Long userId,  // ✅ 명확하게 지정
+            @RequestParam("deleteFlag") boolean deleteFlag) {
         try {
             // UserService의 changeUserStatus 메서드 호출
             userService.changeUserStatus(userId, deleteFlag);
