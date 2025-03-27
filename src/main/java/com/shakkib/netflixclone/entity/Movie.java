@@ -56,6 +56,11 @@ public class Movie {
         this.updatedAt = updatedAt;
     }
 
+    public Movie(Long movieId, String mockTestMovie) {
+        this.movieId = movieId;
+        this.title = mockTestMovie;
+    }
+
 //    public void updateOverview(String overview) {
 //
 //        this.overview = overview;

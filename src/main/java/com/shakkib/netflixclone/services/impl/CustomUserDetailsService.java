@@ -1,4 +1,4 @@
-package com.shakkib.netflixclone.services;
+package com.shakkib.netflixclone.services.impl;
 
 import com.shakkib.netflixclone.dtoes.CustomUserDetails;
 import com.shakkib.netflixclone.entity.User;
