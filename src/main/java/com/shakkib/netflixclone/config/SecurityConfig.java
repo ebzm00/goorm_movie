@@ -1,6 +1,6 @@
 package com.shakkib.netflixclone.config;
 
-import com.shakkib.netflixclone.jwt.CustomLogoutFilter;
+import com.shakkib.netflixclone.jwt.LogoutFilter;
 import com.shakkib.netflixclone.jwt.JwtFilter;
 import com.shakkib.netflixclone.jwt.JwtUtil;
 import com.shakkib.netflixclone.jwt.LoginFilter;
@@ -15,7 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -70,7 +69,7 @@ public class SecurityConfig {
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), refreshTokenRepository,jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         http
-                .addFilterBefore(new CustomLogoutFilter(refreshTokenRepository,jwtUtil), LogoutFilter.class);
+                .addFilterBefore(new LogoutFilter(refreshTokenRepository,jwtUtil), org.springframework.security.web.authentication.logout.LogoutFilter.class);
         return http.build();
     }
 }
