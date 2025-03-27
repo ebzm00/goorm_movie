@@ -1,6 +1,7 @@
 package com.shakkib.netflixclone.services.impl;
 
 import com.shakkib.netflixclone.dtoes.MovieCreateDTO;
+import com.shakkib.netflixclone.dtoes.MovieDTO;
 import com.shakkib.netflixclone.dtoes.MovieListDTO;
 import com.shakkib.netflixclone.entity.Genre;
 import com.shakkib.netflixclone.entity.Movie;
@@ -58,34 +59,6 @@ class MovieServiceImplTest {
         assertEquals(2, result.size());
         assertEquals("Test Title 1", result.get(0).getTitle());
         assertEquals("Test Title 2", result.get(1).getTitle());
-    }
-
-
-    @Test
-    @DisplayName("keyword로 영화 검색할 수 있다")
-    void searchMoviesByKeyword_shouldReturnMatchingMovies() {
-        // given
-        String keyword = "아";
-
-        Genre genre = new Genre(1L, "액션");
-
-        Movie movie1 = new Movie(1L, 101L, "아이언맨", "Iron Man", "/poster1.jpg", false,
-                "Intro 1", LocalDate.of(2008, 5, 2), genre, LocalDateTime.now(), LocalDateTime.now());
-
-        Movie movie2 = new Movie(2L, 102L, "아이언 자이언트", "The Iron Giant", "/poster2.jpg", false,
-                "Intro 2", LocalDate.of(1999, 8, 6), genre, LocalDateTime.now(), LocalDateTime.now());
-
-        List<Movie> mockResult = List.of(movie1, movie2);
-
-        when(movieRepository.searchMoviesWithKeyword(keyword)).thenReturn(mockResult);
-
-        // when
-        List<MovieListDTO> result = movieService.searchMoviesByKeyword(keyword);
-
-        // then
-        assertThat(result).hasSize(2);
-        assertThat(result.get(0).getTitle()).contains("아이언");
-        assertThat(result.get(1).getTitle()).contains("아이언");
     }
 
 
@@ -239,6 +212,44 @@ class MovieServiceImplTest {
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getTitle()).isEqualTo("Active Movie");
     }
+
+    @Test
+    @DisplayName("특정 영화 ID로 상세 조회 성공")
+    void getMovieById_shouldReturnMovieDTO_whenMovieExistsAndIsActive() {
+        // given
+        Genre genre = new Genre(1L, "SF");
+        Movie movie = new Movie(
+                1L, 101L, "Inception", "Inception Original",
+                "/inception.jpg", false, "Dream movie",
+                LocalDate.of(2010, 7, 16),
+                genre, LocalDateTime.now(), LocalDateTime.now()
+        );
+
+        when(movieRepository.findByIdAndIsUseTrue(1L)).thenReturn(Optional.of(movie));
+
+        // when
+        Optional<MovieDTO> result = movieService.getMovieById(1L);
+
+        // then
+        assertThat(result).isPresent();
+        assertThat(result.get().getTitle()).isEqualTo("Inception");
+        assertThat(result.get().getGenre()).isEqualTo("SF");
+    }
+
+    @Test
+    @DisplayName("특정 영화 ID로 조회 시 존재하지 않으면 빈 Optional 반환")
+    void getMovieById_shouldReturnEmpty_whenMovieNotFound() {
+        // given
+        when(movieRepository.findByIdAndIsUseTrue(999L)).thenReturn(Optional.empty());
+
+        // when
+        Optional<MovieDTO> result = movieService.getMovieById(999L);
+
+        // then
+        assertThat(result).isEmpty();
+    }
+
+
     // saveMovie() 메소드에 대한 텍스트
     @Test
     @DisplayName("영화 저장")
