@@ -175,7 +175,7 @@ public class BookmarkServiceTest {
         List<BookMarkDTO.Response> result = bookmarkService.getBookmarks(email);
 
         // Then
-        Assertions.assertNull(result);
+        Assertions.assertTrue(result.isEmpty());
     }
 
     @Test

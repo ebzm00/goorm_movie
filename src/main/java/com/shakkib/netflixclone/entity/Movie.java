@@ -61,6 +61,11 @@ public class Movie {
         this.isUse = true;
     }
 
+    public Movie(Long movieId, String mockTestMovie) {
+        this.movieId = movieId;
+        this.title = mockTestMovie;
+    }
+
 
     public void deactivate() {
         this.isUse = false;
