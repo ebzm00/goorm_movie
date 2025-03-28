@@ -53,7 +53,7 @@ public class AdminController {
         } catch (UserDetailsNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user status");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("사용자 상태 업데이트 중 오류가 발생했습니다.");
         }
     }
 
