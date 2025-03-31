@@ -4,8 +4,9 @@
 
 ## 🔗 팀 페이지
 
-- [ 📊 기획안 (Docs)](https://docs.google.com/document/d/15XPF8ZtGBHVZysxWvq9RE2xBmDs1hhZmmc51imEQLfA/edit?tab=t.0){:target="_blank"}
-- [ 📋 API (Notion)](https://carnation-agustinia-c86.notion.site/API-1c0c95bd591c800aba47e46872956986){:target="_blank"}
+- <a href="https://docs.google.com/document/d/15XPF8ZtGBHVZysxWvq9RE2xBmDs1hhZmmc51imEQLfA/edit?tab=t.0" target="_blank">📊 기획안 (Docs)</a>
+- <a href="https://carnation-agustinia-c86.notion.site/API-1c0c95bd591c800aba47e46872956986" target="_blank">📋 API (Notion)</a>
+
 <details>
   <summary>📝 ERD 보기</summary>
   <br>
